@@ -25,7 +25,6 @@ const TextFieldBook = ({ label, placeholder, name, type, color, size, margin, ic
       variant="outlined"
       autoComplete="off"
       type={type}
-
       color={color || 'primary'} 
       sx={{ width: size || '70%', margin: margin || 'auto' }}
       InputProps={{

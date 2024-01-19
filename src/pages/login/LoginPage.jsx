@@ -7,11 +7,17 @@ import logo from "../../assets/png/logo-no-background.png";
 import "./Login.css"
 
 const LoginPage = () => {
-  const handleLogin = (event) => {
-    event.preventDefault();
-    // Lógica de login aqui
-  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
+  const handleLogin = (event) => {
+  
+
+   
+   
+
+   
+  };
   return (
     <Box
       sx={{
@@ -28,27 +34,29 @@ const LoginPage = () => {
       <Card sx={{ maxWidth: 400 ,backgroundColor: "#f2f2f2"}}>
         <CardHeader title="Login"
           sx={{
-            textAlign: "center",
-          }} />
+            textAlign: "center"
+          }}
+           />
         <CardContent>
           <form onSubmit={handleLogin}>
-            <FormControl >
+            <FormControl onSubmit={handleLogin}>
               <Grid container justifyContent="center" alignItems="center" rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <TextFieldBook
                   name="username"
-                  placeholder="Usuario"
+                  placeholder="Username"
                   icon={<AccountCircle />}
-
+                  
                 />
                 <Grid item xs={12}></Grid>
                 <TextFieldBook
                   name="password"
-                  placeholder="Senha"
+                  placeholder="Password"
                   type="password"
                   icon={<Lock />}
+                  
                 />
                 <Grid item xs={12}></Grid>
-                <BookButton label="Login"/>
+                <BookButton label="Login" width="270px" type="submit" />
               </Grid>
             </FormControl>
           </form>
