@@ -34,7 +34,9 @@ export const AuthProvider = ({ children }) => {
   
       
       setUser(principal);
+      checkIsCompetitor(response.data.roleCode);
       localStorage.setItem("principal", JSON.stringify(principal));
+      
   
       
      
@@ -51,6 +53,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
   
+  const checkIsCompetitor = (roleCode) => {
+    let role = "ROLE_SELLER";
+    let result = roleCode === role;
+    setIsCompetitor(result);
+    return result;
+  };
 
   const logout = () => {
     setUser(null);
