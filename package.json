@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.5",
     "@mui/material": "^5.15.5",
     "@mui/styled-engine-sc": "^6.0.0-alpha.12",
