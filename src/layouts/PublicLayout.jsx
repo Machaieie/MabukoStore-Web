@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext";
 import menu from "../services/NavigationService";
 import "../App.css"
-import {} from "@mui/material"
+import { } from "@mui/material"
 
 const PublicLayout = () => {
     useEffect(() => {
