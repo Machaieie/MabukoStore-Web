@@ -20,11 +20,7 @@ const PublicLayout = () => {
 
     return (
         <>
-            <header>
-               
-
-                
-            </header>
+          
         </>
     )
 }
