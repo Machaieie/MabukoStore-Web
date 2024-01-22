@@ -30,7 +30,8 @@ import {
   Edit,
   Book,
   SupervisedUserCircle,
-  Store
+  Store,
+  Group
 } from '@mui/icons-material';
 
 const drawerWidth = 240;
@@ -208,7 +209,7 @@ function Sidebar() {
 
           <ListItemButton onClick={() => handleMenuClick('users')}>
             <ListItemIcon>
-              <Store />
+              <Group />
             </ListItemIcon>
             <ListItemText primary="Usuarios" />
             {openMenu.users ? <ExpandLess /> : <ExpandMore />}
