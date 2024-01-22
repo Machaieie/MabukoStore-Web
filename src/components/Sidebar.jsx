@@ -31,7 +31,12 @@ import {
   Book,
   SupervisedUserCircle,
   Store,
-  Group
+  Group,
+  FormatListBulleted,
+  PersonAddAlt1,
+  AddBusiness,
+  GroupAdd,
+  BookmarkAdd
 } from '@mui/icons-material';
 
 const drawerWidth = 240;
@@ -146,13 +151,13 @@ function Sidebar() {
             <List component="div" disablePadding>
               <NestedListItem button component={Link} to="/addBook">
                 <ListItemIcon>
-                  <Edit />
+                  <BookmarkAdd />
                 </ListItemIcon>
                 <ListItemText primary="Adicionar" />
               </NestedListItem>
               <NestedListItem button component={Link} to="/listBooks">
                 <ListItemIcon>
-                  <Inbox />
+                  <FormatListBulleted />
                 </ListItemIcon>
                 <ListItemText primary="Listar" />
               </NestedListItem>
@@ -170,13 +175,13 @@ function Sidebar() {
             <List component="div" disablePadding>
               <NestedListItem button component={Link} to="/addAuthors">
                 <ListItemIcon>
-                  <Edit />
+                  <GroupAdd />
                 </ListItemIcon>
                 <ListItemText primary="Adicionar" />
               </NestedListItem>
               <NestedListItem button component={Link} to="/listAuthors">
                 <ListItemIcon>
-                  <Inbox />
+                  <FormatListBulleted />
                 </ListItemIcon>
                 <ListItemText primary="Listar" />
               </NestedListItem>
@@ -194,13 +199,13 @@ function Sidebar() {
             <List component="div" disablePadding>
               <NestedListItem button component={Link} to="/addPublisher">
                 <ListItemIcon>
-                  <Edit />
+                  <AddBusiness />
                 </ListItemIcon>
                 <ListItemText primary="Adicionar" />
               </NestedListItem>
               <NestedListItem button component={Link} to="/listPublisher">
                 <ListItemIcon>
-                  <Inbox />
+                  <FormatListBulleted />
                 </ListItemIcon>
                 <ListItemText primary="Listar" />
               </NestedListItem>
@@ -218,13 +223,13 @@ function Sidebar() {
             <List component="div" disablePadding>
               <NestedListItem button component={Link} to="/addUser">
                 <ListItemIcon>
-                  <Edit />
+                  <PersonAddAlt1 />
                 </ListItemIcon>
                 <ListItemText primary="Adicionar" />
               </NestedListItem>
               <NestedListItem button component={Link} to="/listusers">
                 <ListItemIcon>
-                  <Inbox />
+                  <FormatListBulleted />
                 </ListItemIcon>
                 <ListItemText primary="Listar" />
               </NestedListItem>

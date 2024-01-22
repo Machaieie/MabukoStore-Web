@@ -45,7 +45,7 @@ const AddBook = () => {
       }}
     >
       <Card sx={{
-       
+       boxShadow: 10, backgroundColor: "#f2f2f2" 
       }}>
         <CardHeader
           title="Adicionar Livro"
