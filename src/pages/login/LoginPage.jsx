@@ -1,27 +1,45 @@
 import React, { useState, useContext } from "react";
 import * as yup from "yup";
 import TextFieldBook from "../../components/textfields/TextFieldBook";
-import { Card, CardHeader, Grid, CardContent, FormControl, Box } from "@mui/material";
+import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
 import { Lock, AccountCircle } from "@mui/icons-material";
 import BookSubmitButton from "../../components/buttons/BookSubmitButton";
 import logo from "../../assets/png/logo-no-background.png";
-import { loginRules } from "../../services/SchemaService"; 
+import { loginRules } from "../../services/SchemaService";
 import { AuthContext } from "../../contexts/AuthContext";
 import "./Login.css";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
+import http from '../../http.common';
 
 const LoginPage = () => {
-  const {  login } = useContext(AuthContext);
+
+  const {
+    reset,
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(loginRules),
+  });
+  const { login } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
 
-  const handleLogin = async (event) => {
-   
-
-    
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      //await http.post('/author', data);
+      console.log("Dtaaa", data);
+      toast.success('Autor cadastrado com sucesso!');
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      reset();
+    } catch (error) {
+      toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
+    }
   };
-
   return (
     <Box
       sx={{
@@ -43,7 +61,7 @@ const LoginPage = () => {
           }}
         />
         <CardContent>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
               <Grid
                 container
@@ -52,24 +70,44 @@ const LoginPage = () => {
                 rowSpacing={2}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
-                <TextFieldBook
-                  name="username"
-                  placeholder="Username"
-                  icon={<AccountCircle />}
-                  onChange={(e) => setUsername(e.target.value)}
-                  
-                />
-                <Grid item xs={12}></Grid>
-                <TextFieldBook
-                  name="password"
-                  placeholder="Password"
-                  type="password"
-                  icon={<Lock />}
-                  onChange={(e) => setPassword(e.target.value)}
-                  
-                />
-                <Grid item xs={12}></Grid>
-                <BookSubmitButton  width="270px"  />
+                <Grid item xs={12}>
+                  <TextField
+                    name="username"
+                    placeholder="Username"
+                    label="Username"
+                    fullWidth
+                    {...register("username")}
+                    error={!!errors.username}
+                    helperText={errors.username?.message}
+
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    name="password"
+                    placeholder="Password"
+                    label="Password"
+                    fullWidth
+                    type="password"
+                    {...register("username")}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+
+
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Button
+                    type='submit'
+                    variant="contained"
+                    fullWidth
+                    color="primary">
+                    Login
+                  </Button>
+                </Grid>
+
               </Grid>
             </FormControl>
           </form>

@@ -92,9 +92,6 @@ const AddAuthor = () => {
                                     value={gender}
                                     options={bookOptions}
                                     name="gender"
-                                    {...register("gender")}
-                                    error={!!errors.gender}
-                                    helperText={errors.gender?.message}
                                 />
                             </Grid>
                             <Grid item xs={6}>

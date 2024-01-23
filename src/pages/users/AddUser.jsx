@@ -5,7 +5,7 @@ import BookSelect from '../../components/Dropdown/BookSelect';
 import PasswordField from '../../components/textfields/PasswordField';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { userSchemma } from '../../services/SchemaService';
+import { userSchema } from '../../services/SchemaService';
 import { toast } from 'react-toastify'; 
 import http from '../../http.common';
 
@@ -24,7 +24,7 @@ const AddUser = () => {
     formState: { errors },
     handleSubmit,
   } = useForm({
-    resolver: yupResolver(userSchemma),
+    resolver: yupResolver(userSchema),
   });
 
   const [role, setRole] = useState('');
@@ -79,7 +79,7 @@ const AddUser = () => {
                   label="Nome"
                   placeholder="nome"
                   fullWidth
-                  {...register("username")}
+                  {...register("name")}
                   error={!!errors.name}
                   helperText={errors.name?.message}
                 />
@@ -96,22 +96,22 @@ const AddUser = () => {
                 />
               </Grid>
               <Grid item xs={6}>
-                <PasswordField
+                <TextField
                   placeholder="Senha"
-                  
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  label="Senha"
+                  fullWidth
+                  type='password'
                   {...register("password")}
                   error={!!errors.password}
                   helperText={errors.password?.message}
                 />
               </Grid>
               <Grid item xs={6}>
-                <PasswordField
+                <TextField
                   placeholder="Confirmar Senha"
-                  
-                  value={confpassword}
-                  onChange={(e) => setConfpassword(e.target.value)}
+                  label="Confirmar Senha"
+                  type='password'
+                  fullWidth
                   {...register("confirmPassword")}
                   error={!!errors.confirmPassword}
                   helperText={errors.confirmPassword?.message}
@@ -120,7 +120,6 @@ const AddUser = () => {
               <Grid item xs={6}>
                 <TextField
                   label="Nuit"
-                  
                   placeholder="Nuit"
                   fullWidth
                   {...register("nuit")}
@@ -135,10 +134,6 @@ const AddUser = () => {
                   value={role}
                   options={RoleOptions}
                   name="role"
-                  {...register("role")}
-                  error={!!errors.role}
-                  helperText={errors.role?.message}
-
                 />
               </Grid>
               <Grid item xs={12}>

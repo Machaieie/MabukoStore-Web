@@ -37,6 +37,7 @@ const AddBook = () => {
 
   const handleAuthorChange = (event) => {
     setAuthor(event.target.value);
+    console.log("Autor =>",event.target.value)
   };
 
   const handlePublisherChange = (event) => {
@@ -76,9 +77,6 @@ const AddBook = () => {
                   value={author}
                   options={bookOptions}
                   name="author"
-                  {...register("author")}
-                  error={!!errors.author}
-                  helperText={errors.author?.message}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -88,9 +86,6 @@ const AddBook = () => {
                   value={publisher}
                   options={publisherOptions}
                   name="publisher"
-                  {...register("publisher")}
-                  error={!!errors.publisher}
-                  helperText={errors.publisher?.message}
                 />
               </Grid>
               <Grid item xs={6}>
