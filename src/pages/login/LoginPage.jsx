@@ -29,9 +29,8 @@ const LoginPage = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      //await http.post('/author', data);
-      console.log("Dtaaa", data);
-      toast.success('Autor cadastrado com sucesso!');
+      await http.post('/auth/login', data);
+      toast.success('Bem vindo!');
       setTimeout(() => {
         setLoading(false);
       }, 1000);
@@ -90,7 +89,7 @@ const LoginPage = () => {
                     label="Password"
                     fullWidth
                     type="password"
-                    {...register("username")}
+                    {...register("password")}
                     error={!!errors.password}
                     helperText={errors.password?.message}
 

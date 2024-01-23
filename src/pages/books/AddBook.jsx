@@ -34,10 +34,10 @@ const AddBook = () => {
     { value: 'Plural Editores', label: 'Plural Editores' },
     { value: 'Person', label: 'Person' },
   ];
-
+  const backendUrl = process.env.REACT_APP_API_URL;
   const handleAuthorChange = (event) => {
     setAuthor(event.target.value);
-    console.log("Autor =>",event.target.value)
+    console.log("Autor =>",backendUrl);
   };
 
   const handlePublisherChange = (event) => {
