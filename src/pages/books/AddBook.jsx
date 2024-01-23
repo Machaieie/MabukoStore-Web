@@ -1,14 +1,29 @@
 import React, { useState } from 'react'
-import TextFieldBook from "../../components/textfields/TextFieldBook";
-import { Card, CardHeader, Grid, CardContent, FormControl, Box } from "@mui/material";
+import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
 import logo from "../../assets/png/backgraundpage.png";
-import BookSubmitButton from '../../components/buttons/BookSubmitButton';
 import BookSelect from '../../components/Dropdown/BookSelect';
 import BookDatePicker from '../../components/datepicker/BookDatePicker';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { bookSchema } from '../../services/SchemaService';
+import { toast } from 'react-toastify';
 
 const AddBook = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(bookSchema),
+    mode: "onBlur"
+  });
   const [author, setAuthor] = useState('');
   const [publisher, setPublisher] = useState('');
+
+
+  const onSubmit = async (data) => {
+    try {
+      console.log('Form Data:', data);
+    } catch (error) {
+      toast.error(error.response?.data.message);
+    }
+  };
 
   const bookOptions = [
     { value: 'Jose', label: 'Jose' },
@@ -27,11 +42,7 @@ const AddBook = () => {
   const handlePublisherChange = (event) => {
     setPublisher(event.target.value);
   };
-  const handlesubmit = async (event) => {
 
-
-
-  };
   return (
     <Box
       sx={{
@@ -45,7 +56,7 @@ const AddBook = () => {
       }}
     >
       <Card sx={{
-       boxShadow: 10, backgroundColor: "#f2f2f2" 
+        boxShadow: 10, backgroundColor: "#f2f2f2"
       }}>
         <CardHeader
           title="Adicionar Livro"
@@ -54,7 +65,7 @@ const AddBook = () => {
           }}
         />
         <CardContent>
-          <form onSubmit={handlesubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
               marginLeft: "100px"
             }}>
@@ -65,6 +76,9 @@ const AddBook = () => {
                   value={author}
                   options={bookOptions}
                   name="author"
+                  {...register("author")}
+                  error={!!errors.author}
+                  helperText={errors.author?.message}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -74,38 +88,62 @@ const AddBook = () => {
                   value={publisher}
                   options={publisherOptions}
                   name="publisher"
+                  {...register("publisher")}
+                  error={!!errors.publisher}
+                  helperText={errors.publisher?.message}
                 />
               </Grid>
               <Grid item xs={6}>
-              <TextFieldBook
+                <TextField
                   label="Título"
-                  name="title"
                   placeholder="Título"
-                  size="100%"
+                  fullWidth
+                  {...register("title")}
+                  error={!!errors.title}
+                  helperText={errors.title?.message}
                 />
               </Grid>
               <Grid item xs={6}>
-              <TextFieldBook
+                <TextField
                   label="Gênero"
                   name="gender"
                   placeholder="Gênero"
-                  size="100%"
+                  fullWidth
+                  {...register("gender")}
+                  error={!!errors.gender}
+                  helperText={errors.gender?.message}
                 />
               </Grid>
-              
+
               <Grid item xs={6}>
-                <BookDatePicker size={500} name="publisherDate" label="Data de Publicacão" disablePast />
+                <BookDatePicker
+                  size={500}
+                  name="publisherDate"
+                  label="Data de Publicacão"
+                  disablePast
+                  {...register("publisherDate")}
+                  error={!!errors.publisherDate}
+                  helperText={errors.publisherDate?.message} />
               </Grid>
               <Grid item xs={6}>
-                <TextFieldBook
+                <TextField
                   label="Edicão"
                   name="edition"
                   placeholder="Edicão"
-                  size="100%"
+                  fullWidth
+                  {...register("edition")}
+                  error={!!errors.edition}
+                  helperText={errors.edition?.message}
                 />
               </Grid>
               <Grid item xs={12}>
-              <BookSubmitButton label="Submeter" onClick={handlesubmit}/>
+                <Button
+                  type='submit'
+                  variant="contained"
+                  fullWidth
+                  color="primary">
+                  Cadastrar
+                </Button>
               </Grid>
             </Grid>
           </form>

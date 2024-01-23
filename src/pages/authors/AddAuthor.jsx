@@ -1,27 +1,53 @@
-import React from 'react'
-import TextFieldBook from "../../components/textfields/TextFieldBook";
-import { Card, CardHeader, Grid, CardContent, FormControl, Box } from "@mui/material";
-import logo from "../../assets/png/backgraundpage.png";
+import React, { useState, useEffect } from 'react';
+import TextFieldBook from '../../components/textfields/TextFieldBook';
+import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from '@mui/material';
+import logo from '../../assets/png/backgraundpage.png';
 import BookSelect from '../../components/Dropdown/BookSelect';
 import BookSubmitButton from '../../components/buttons/BookSubmitButton';
-
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { authorSchema } from '../../services/SchemaService';
+import { toast } from 'react-toastify'; // Make sure to import toast if it's not already imported in your project
+import http from '../../http.common';
 
 const AddAuthor = () => {
-    const [gender, setGender] = React.useState('');
+    const [gender, setGender] = useState('');
+    const [isLoading, setLoading] = useState(false);
+
 
     const bookOptions = [
         { value: 'Masculino', label: 'Masculino' },
         { value: 'Feminino', label: 'Feminino' },
     ];
+    const {
+        reset,
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm({
+        resolver: yupResolver(authorSchema),
+    });
     const handleChange = (event) => {
-      setGender(event.target.value);
+        setGender(event.target.value);
     };
 
-    const handlesubmit = async (event) => {
-
-
-
+    const onSubmit = async (data) => {
+        try {
+            setLoading(true);
+            //await http.post('/author', data);
+            console.log("Dtaaa", data);
+            toast.success('Autor cadastrado com sucesso!');
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+            reset();
+        } catch (error) {
+            toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
+        }
     };
+
+
+
     return (
         <Box
             sx={{
@@ -42,46 +68,65 @@ const AddAuthor = () => {
                     }}
                 />
                 <CardContent>
-                    <form onSubmit={handlesubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
 
                         <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
                             marginLeft: "100px"
                         }}>
                             <Grid item xs={6}>
-                                <TextFieldBook
+                                <TextField
                                     label="Nome"
                                     name="name"
                                     placeholder="nome"
-                                    size="100%"
+                                    fullWidth
+                                    {...register("name")}
+                                    error={!!errors.name}
+                                    helperText={errors.name?.message}
+                                />
+
+                            </Grid>
+                            <Grid item xs={6}>
+                                <BookSelect
+                                    label="Gênero"
+                                    onChange={handleChange}
+                                    value={gender}
+                                    options={bookOptions}
+                                    name="gender"
+                                    {...register("gender")}
+                                    error={!!errors.gender}
+                                    helperText={errors.gender?.message}
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                               <BookSelect
-                               label="Gênero"
-                               onChange={handleChange}
-                               value={gender}
-                               options={bookOptions}
-                               name="gender"
-                               />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextFieldBook
+                                <TextField
                                     label="Biografia"
                                     name="biography"
                                     placeholder="Biografia"
-                                    size="100%"
+                                    fullWidth
+                                    {...register("biography")}
+                                    error={!!errors.biography}
+                                    helperText={errors.biography?.message}
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <TextFieldBook
+                                <TextField
                                     label="Nacionalidade"
                                     name="nationality"
                                     placeholder="Nacionalidade"
-                                    size="100%"
+                                    fullWidth
+                                    {...register("nationality")}
+                                    error={!!errors.nationality}
+                                    helperText={errors.nationality?.message}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <BookSubmitButton label="Cadastrar" onClick={handlesubmit() }/>
+                                <Button
+                                    type='submit'
+                                    variant="contained"
+                                    fullWidth
+                                    color="primary">
+                                    Cadastrar
+                                </Button>
                             </Grid>
                         </Grid>
 

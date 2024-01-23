@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 
-const TextFieldBook = ({ label, placeholder, name, type, color, size, margin, icon }) => {
+const TextFieldBook = ({ label, placeholder,  color, size, margin, icon }) => {
   const renderIcon = () => {
     if (icon) {
       return (
@@ -21,10 +21,8 @@ const TextFieldBook = ({ label, placeholder, name, type, color, size, margin, ic
     <TextField
       label={label}
       placeholder={placeholder}
-      name={name}
       variant="outlined"
       autoComplete="off"
-      type={type}
       color={color || 'primary'} 
       sx={{ width: size || '70%', margin: margin || 'auto' }}
       InputProps={{

@@ -1,18 +1,26 @@
-import React, { useState } from 'react'
-import TextFieldBook from "../../components/textfields/TextFieldBook";
-import { Card, CardHeader, Grid, CardContent, FormControl, Box } from "@mui/material";
+import React from 'react';
+import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
 import logo from "../../assets/png/backgraundpage.png";
-import BookSubmitButton from '../../components/buttons/BookSubmitButton';
-import BookSelect from '../../components/Dropdown/BookSelect';
-import BookDatePicker from '../../components/datepicker/BookDatePicker';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { publisherSchema } from '../../services/SchemaService';
+import { toast } from 'react-toastify';
+import http from '../../http.common';
+
 
 const AddPublisher = () => {
-
-  const handlesubmit = async (event) => {
-
-
-
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(publisherSchema),
+    mode: "onBlur"
+  });
+  const onSubmit = async (data) => {
+    try {
+      console.log('Form Data:', data);
+    } catch (error) {
+      toast.error(error.response?.data.message);
+    }
   };
+
   return (
     <Box
       sx={{
@@ -33,53 +41,62 @@ const AddPublisher = () => {
           }}
         />
         <CardContent>
-          <form onSubmit={handlesubmit}>
-
-            <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
-              marginLeft: "100px"
-            }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ marginLeft: "100px" }}>
               <Grid item xs={6}>
-                <TextFieldBook
+                <TextField
                   label="Nome"
-                  name="name"
-                  placeholder="nome"
-                  size="100%"
+                  placeholder="Nome"
+                  fullWidth
+                  {...register("name")}
+                  error={!!errors.name}
+                  helperText={errors.name?.message}
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextFieldBook
-                  label="Localizacão"
-                  name="location"
-                  placeholder="Localizacão"
-                  size="100%"
+                <TextField
+                  label="Localizacao"
+                  placeholder="Nome"
+                  fullWidth
+                  {...register("location")}
+                  error={!!errors.location}
+                  helperText={errors.location?.message}
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextFieldBook
-                  label="Telefone"
-                  name="phone"
+                <TextField
+                  label="telefone"
                   placeholder="Telefone"
-                  size="100%"
+                  fullWidth
+                  {...register("phone")}
+                  error={!!errors.phone}
+                  helperText={errors.phone?.message}
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextFieldBook
+                <TextField
                   label="Nuit"
-                  name="nuit"
                   placeholder="Nuit"
-                  size="100%"
+                  fullWidth
+                  {...register("nuit")}
+                  error={!!errors.nuit}
+                  helperText={errors.nuit?.message}
                 />
+
               </Grid>
               <Grid item xs={12}>
-                <BookSubmitButton label="Cadastrar" onClick={handlesubmit()} />
+                <Button
+                  type='submit'
+                  variant="contained"
+                  fullWidth
+                  color="primary">Cadastrar</Button>
               </Grid>
             </Grid>
-
           </form>
         </CardContent>
       </Card>
     </Box>
-  )
+  );
 }
 
-export default AddPublisher
+export default AddPublisher;
