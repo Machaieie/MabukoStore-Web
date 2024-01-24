@@ -34,8 +34,18 @@ const AddAuthor = () => {
     const onSubmit = async (data) => {
         try {
             setLoading(true);
-            //await http.post('/author', data);
-            console.log("Dtaaa", data);
+            await http.post('/author', {
+                "name":data.name,
+                "gender":gender,
+                "biography":data.biography,
+                "nationality":data.nationality
+            });
+            // console.log("Dtaaa", {
+            //     "name":data.name,
+            //     "gender":gender,
+            //     "biography":data.biography,
+            //     "nationality":data.nationality
+            // });
             toast.success('Autor cadastrado com sucesso!');
             setTimeout(() => {
                 setLoading(false);

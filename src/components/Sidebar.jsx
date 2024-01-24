@@ -14,10 +14,11 @@ import {
   Menu,
   MenuItem,
   Divider,
+  Box
 } from '@mui/material';
 import { styled } from '@mui/system';
-import logoImage from '../assets/png/logo-no-background.png';
-import avatar from '../assets/png/logo-white.png';
+import logoImage from '../assets/png/sidelogo.png';
+
 
 import {
   ExpandLess,
@@ -110,7 +111,7 @@ function Sidebar() {
     <div>
       <AppBar position="fixed">
         <Toolbar>
-          
+
         </Toolbar>
       </AppBar>
       <DrawerContainer
@@ -119,131 +120,166 @@ function Sidebar() {
         PaperProps={{
           style: {
             width: drawerWidth,
+
           },
         }}
         anchor="left"
       >
-        <List>
+        <List sx={{
+          backgroundColor: "#4285F4",
+          color: "#fff",
+          height: "180vh"
+        }}>
           <ListItemButton>
             <LogoContainer>
               <LogoImage src={logoImage} alt="Logo" />
             </LogoContainer>
           </ListItemButton>
           <Divider />
+          <Box >
+            <ListItemButton component={Link} to="/dashboard">
+              <ListItemIcon>
+                <Dashboard sx={{
+                  color: "#fff"
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItemButton>
 
-          <ListItemButton component={Link} to="/dashboard">
-            <ListItemIcon>
-              <Dashboard />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItemButton>
 
-        
-          
-          <ListItemButton onClick={() => handleMenuClick('books')}>
-            <ListItemIcon>
-              <Book />
-            </ListItemIcon>
-            <ListItemText primary="Livros" />
-            {openMenu.books ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openMenu.books} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <NestedListItem button component={Link} to="/addBook">
-                <ListItemIcon>
-                  <BookmarkAdd />
-                </ListItemIcon>
-                <ListItemText primary="Adicionar" />
-              </NestedListItem>
-              <NestedListItem button component={Link} to="/listBooks">
-                <ListItemIcon>
-                  <FormatListBulleted />
-                </ListItemIcon>
-                <ListItemText primary="Listar" />
-              </NestedListItem>
-            </List>
-          </Collapse>
 
-          <ListItemButton onClick={() => handleMenuClick('authors')}>
-            <ListItemIcon>
-              <SupervisedUserCircle  />
-            </ListItemIcon>
-            <ListItemText primary="Autores" />
-            {openMenu.authors ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openMenu.authors} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <NestedListItem button component={Link} to="/addAuthors">
-                <ListItemIcon>
-                  <GroupAdd />
-                </ListItemIcon>
-                <ListItemText primary="Adicionar" />
-              </NestedListItem>
-              <NestedListItem button component={Link} to="/listAuthors">
-                <ListItemIcon>
-                  <FormatListBulleted />
-                </ListItemIcon>
-                <ListItemText primary="Listar" />
-              </NestedListItem>
-            </List>
-          </Collapse>
+            <ListItemButton onClick={() => handleMenuClick('books')}>
+              <ListItemIcon>
+                <Book sx={{
+                  color: "#fff"
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary="Livros" />
+              {openMenu.books ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openMenu.books} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NestedListItem button component={Link} to="/addBook">
+                  <ListItemIcon>
+                    <BookmarkAdd sx={{
+                  color: "#fff"
+                }}/>
+                  </ListItemIcon>
+                  <ListItemText primary="Adicionar" />
+                </NestedListItem>
+                <NestedListItem button component={Link} to="/listBooks">
+                  <ListItemIcon>
+                    <FormatListBulleted sx={{
+                  color: "#fff"
+                }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Listar" />
+                </NestedListItem>
+              </List>
+            </Collapse>
 
-         <ListItemButton onClick={() => handleMenuClick('publishers')}>
-            <ListItemIcon>
-              <Store />
-            </ListItemIcon>
-            <ListItemText primary="Editoras" />
-            {openMenu.publishers ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openMenu.publishers} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <NestedListItem button component={Link} to="/addPublisher">
-                <ListItemIcon>
-                  <AddBusiness />
-                </ListItemIcon>
-                <ListItemText primary="Adicionar" />
-              </NestedListItem>
-              <NestedListItem button component={Link} to="/listPublisher">
-                <ListItemIcon>
-                  <FormatListBulleted />
-                </ListItemIcon>
-                <ListItemText primary="Listar" />
-              </NestedListItem>
-            </List>
-          </Collapse>
+            <ListItemButton onClick={() => handleMenuClick('authors')}>
+              <ListItemIcon>
+                <SupervisedUserCircle sx={{
+                  color: "#fff"
+                }} />
+              </ListItemIcon>
+              <ListItemText primary="Autores" />
+              {openMenu.authors ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openMenu.authors} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NestedListItem button component={Link} to="/addAuthors">
+                  <ListItemIcon>
+                    <GroupAdd sx={{
+                  color: "#fff"
+                }}/>
+                  </ListItemIcon>
+                  <ListItemText primary="Adicionar" />
+                </NestedListItem>
+                <NestedListItem button component={Link} to="/listAuthors">
+                  <ListItemIcon>
+                    <FormatListBulleted sx={{
+                  color: "#fff"
+                }}/>
+                  </ListItemIcon>
+                  <ListItemText primary="Listar" />
+                </NestedListItem>
+              </List>
+            </Collapse>
 
-          <ListItemButton onClick={() => handleMenuClick('users')}>
-            <ListItemIcon>
-              <Group />
-            </ListItemIcon>
-            <ListItemText primary="Usuarios" />
-            {openMenu.users ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openMenu.users} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <NestedListItem button component={Link} to="/addUser">
-                <ListItemIcon>
-                  <PersonAddAlt1 />
-                </ListItemIcon>
-                <ListItemText primary="Adicionar" />
-              </NestedListItem>
-              <NestedListItem button component={Link} to="/listusers">
-                <ListItemIcon>
-                  <FormatListBulleted />
-                </ListItemIcon>
-                <ListItemText primary="Listar" />
-              </NestedListItem>
-            </List>
-          </Collapse>
+            <ListItemButton onClick={() => handleMenuClick('publishers')}>
+              <ListItemIcon>
+                <Store sx={{
+                  color: "#fff"
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary="Editoras" />
+              {openMenu.publishers ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openMenu.publishers} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NestedListItem button component={Link} to="/addPublisher">
+                  <ListItemIcon>
+                    <AddBusiness sx={{
+                  color: "#fff"
+                }}/>
+                  </ListItemIcon>
+                  <ListItemText primary="Adicionar" />
+                </NestedListItem>
+                <NestedListItem button component={Link} to="/listPublisher">
+                  <ListItemIcon>
+                    <FormatListBulleted sx={{
+                  color: "#fff"
+                }}/>
+                  </ListItemIcon>
+                  <ListItemText primary="Listar" />
+                </NestedListItem>
+              </List>
+            </Collapse>
 
-          <ListItemButton component={Link} to="/logout">
-            <ListItemIcon>
-              <ExitToApp />
-            </ListItemIcon>
-            <ListItemText primary="Sair" />
-          </ListItemButton>
+            <ListItemButton onClick={() => handleMenuClick('users')}>
+              <ListItemIcon>
+                <Group sx={{
+                  color: "#fff"
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary="Usuarios" />
+              {openMenu.users ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openMenu.users} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NestedListItem button component={Link} to="/addUser">
+                  <ListItemIcon>
+                    <PersonAddAlt1 sx={{
+                  color: "#fff"
+                }}/>
+                  </ListItemIcon>
+                  <ListItemText primary="Adicionar" />
+                </NestedListItem>
+                <NestedListItem button component={Link} to="/listusers">
+                  <ListItemIcon>
+                    <FormatListBulleted sx={{
+                  color: "#fff"
+                }}/>
+                  </ListItemIcon>
+                  <ListItemText primary="Listar" />
+                </NestedListItem>
+              </List>
+            </Collapse>
 
-          
+            <ListItemButton component={Link} to="/logout">
+              <ListItemIcon>
+                <ExitToApp sx={{
+                  color: "#fff"
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary="Sair" />
+            </ListItemButton>
+          </Box>
+
+
+
         </List>
       </DrawerContainer>
     </div>

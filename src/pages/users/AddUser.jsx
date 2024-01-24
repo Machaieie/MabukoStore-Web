@@ -36,7 +36,7 @@ const AddUser = () => {
 
   const onSubmit = async (data) => {
     try {
-        setLoading(true);
+        //setLoading(true);
         //await http.post('/author', data);
         console.log("Dtaaa", data);
         toast.success('Autor cadastrado com sucesso!');

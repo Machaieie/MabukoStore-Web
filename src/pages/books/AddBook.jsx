@@ -4,9 +4,16 @@ import logo from "../../assets/png/backgraundpage.png";
 import BookSelect from '../../components/Dropdown/BookSelect';
 import BookDatePicker from '../../components/datepicker/BookDatePicker';
 import { useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { bookSchema } from '../../services/SchemaService';
 import { toast } from 'react-toastify';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+const today = dayjs();
 
 const AddBook = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -15,11 +22,23 @@ const AddBook = () => {
   });
   const [author, setAuthor] = useState('');
   const [publisher, setPublisher] = useState('');
+  const [selectedDate, setSelectedDate] = useState();
+  const [mafia, setMafia] = useState();
+  const [increment, setIncrement] = useState();
+
 
 
   const onSubmit = async (data) => {
     try {
-      console.log('Form Data:', data);
+      console.log('Form Data:', {
+        "author": author,
+        "publisher": publisher,
+        "PublicherDate": data.PublicherDate,
+        "gender": data.gender,
+        "Title": data.title,
+        "edition": data.edition,
+      });
+      
     } catch (error) {
       toast.error(error.response?.data.message);
     }
@@ -34,10 +53,18 @@ const AddBook = () => {
     { value: 'Plural Editores', label: 'Plural Editores' },
     { value: 'Person', label: 'Person' },
   ];
-  const backendUrl = process.env.REACT_APP_API_URL;
+
+
+  const handleDateChange = (event) => {
+    setMafia( event["$D","/","$y"])
+    setIncrement(mafia + 1)
+    setSelectedDate(event);
+    console.log("Data =>", event["$D"], "/", event["$M"]+1, "/", event["$y"])
+
+  };
   const handleAuthorChange = (event) => {
     setAuthor(event.target.value);
-    console.log("Autor =>",backendUrl);
+
   };
 
   const handlePublisherChange = (event) => {
@@ -111,14 +138,14 @@ const AddBook = () => {
               </Grid>
 
               <Grid item xs={6}>
-                <BookDatePicker
-                  size={500}
-                  name="publisherDate"
-                  label="Data de Publicacão"
-                  disablePast
-                  {...register("publisherDate")}
-                  error={!!errors.publisherDate}
-                  helperText={errors.publisherDate?.message} />
+                <TextField
+                  label="Data de publicacao"
+                  type='date'
+                  placeholder="Data de Publicacao"
+                  fullWidth
+                  {...register("PublicherDate")}
+                  
+                />
               </Grid>
               <Grid item xs={6}>
                 <TextField

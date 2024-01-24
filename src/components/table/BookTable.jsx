@@ -1,3 +1,4 @@
+import React from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,30 +7,37 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import InfoIcon from "@mui/icons-material/Info";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.primary.dark,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
+const HoverableTableContainer = styled(TableContainer)(({ theme }) => ({
+  "&:hover": {
+    boxShadow: `0 0 10px 0 ${theme.palette.action.hover}`,
+  },
+}));
 
 const BookTable = ({ headers, rows }) => {
   return (
-    <TableContainer component={Paper}>
+    <HoverableTableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -38,6 +46,7 @@ const BookTable = ({ headers, rows }) => {
                 {header.label}
               </StyledTableCell>
             ))}
+            <StyledTableCell align="center">Info</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -48,11 +57,17 @@ const BookTable = ({ headers, rows }) => {
                   {row[header.key]}
                 </StyledTableCell>
               ))}
+              <StyledTableCell align="center">
+                <InfoIcon
+                  style={{ cursor: "pointer", color: "blue" }}
+                  onClick={() => handleInfoClick(row)}
+                />
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </HoverableTableContainer>
   );
 };
 

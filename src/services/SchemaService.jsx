@@ -29,7 +29,6 @@ const bookSchema = yup.object({
   title: yup.string().required(REQUIRED_FIELD_MESSAGE),
   gender: yup.string().required(REQUIRED_FIELD_MESSAGE),
   edition: yup.string().required(REQUIRED_FIELD_MESSAGE),
-  publisherDate: yup.string().required(REQUIRED_FIELD_MESSAGE),
 })
 
 

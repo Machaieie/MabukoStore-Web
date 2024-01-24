@@ -1,29 +1,18 @@
 import * as React from 'react';
-import { Card, CardHeader, Grid, CardContent, Typography, FormControl, Box } from "@mui/material";
+import { Grid, Box, useMediaQuery } from "@mui/material";
+import PromotionCard from '../../components/card/PromotionCard';
 
 const Home = () => {
+  cancelAnimationFrame
   return (
     <Box>
-      <Grid>
-        <Grid container rowSpacing={3}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          sx={{ marginLeft: "100px" }}>
-          <Grid item xs={6}>
-            
-          </Grid>
-          <Grid item xs={6}>
-           
-          </Grid>
-          <Grid item xs={6}>
-            
-          </Grid>
-          <Grid item xs={6}>
-            
-          </Grid>
+      <Grid container spacing={2} >
+        <Grid item xs={12} sm={6} md={6}>
+          <PromotionCard />
         </Grid>
       </Grid>
     </Box>
-  )
+  );
 }
 
-export default Home
+export default Home;
