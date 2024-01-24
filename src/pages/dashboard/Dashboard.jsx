@@ -1,8 +1,12 @@
-import * as React from 'react';
+import  React,{useState} from 'react';
 import { Card, CardHeader, Grid, CardContent, Typography, FormControl, Box } from "@mui/material";
 import CardMabuko from "../../components/card/CardMabuko"
+import BooksCard from '../../components/card/BooksCard';
 
 const Dashboard = () => {
+  const [open, setOpen] = useState(false);
+
+
   return (
     <Box>
       <Grid>
@@ -13,14 +17,9 @@ const Dashboard = () => {
             <CardMabuko/>
           </Grid>
           <Grid item xs={6}>
-          <CardMabuko/>
+          <BooksCard/>
           </Grid>
-          <Grid item xs={6}>
-          <CardMabuko/>
-          </Grid>
-          <Grid item xs={6}>
-          <CardMabuko/>
-          </Grid>
+         
         </Grid>
       </Grid>
     </Box>
