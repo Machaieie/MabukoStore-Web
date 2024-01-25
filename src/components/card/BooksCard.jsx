@@ -23,10 +23,10 @@ const BooksCard = ({ title, content, circularvalue, softtxt, solidtxt, modalTitl
 
             <CardActions>
                 <Button variant="soft" size="sm" onClick={() => setOpen(true)}>
-                    more info
+                    Mais informacões
                 </Button>
                 <Button variant="solid" size="sm" >
-                    
+                    Adicionar
                 </Button>
             </CardActions>
         </Card>
