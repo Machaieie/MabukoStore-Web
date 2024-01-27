@@ -7,7 +7,7 @@ import BookSubmitButton from '../../components/buttons/BookSubmitButton';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authorSchema } from '../../services/SchemaService';
-import { toast } from 'react-toastify'; // Make sure to import toast if it's not already imported in your project
+import { toast } from 'react-toastify'; 
 import http from '../../http.common';
 
 const AddAuthor = () => {

@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Box, Grid, Card } from '@mui/material'
 import BookTable from '../../components/table/BookTable'
+import { toast } from 'react-toastify';
+import http from '../../http.common'; 
 
 const headers = [
   { key: 'id', label: 'ID', align: 'left' },
@@ -16,11 +18,31 @@ const rows = [
 ];
 
 const Publishers = () => {
+  const [publishers, setPublishers] = useState([]);
+
+  const fetchData = async ()=>{
+    const response = await http.get('/publishers');
+    console.log(response)
+    const data = response.data.map(publisher => ({
+      id: publisher.id,
+      name: publisher.name,
+      location: publisher.location,
+      phone: publisher.phone,
+      nuit: publisher.nuit,
+    }));
+
+    setPublishers(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Grid container>
       <Grid item xs={12} >
         <Card>
-          <BookTable rows={rows} headers={headers}/>
+          <BookTable rows={publishers} headers={headers}/>
         </Card>
       </Grid>
     </Grid>
