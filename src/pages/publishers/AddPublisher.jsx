@@ -15,6 +15,7 @@ const AddPublisher = () => {
   });
   const onSubmit = async (data) => {
     try {
+      await http.post('/publisher', data);
       console.log('Form Data:', data);
     } catch (error) {
       toast.error(error.response?.data.message);

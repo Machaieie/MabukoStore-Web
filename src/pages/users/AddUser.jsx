@@ -37,7 +37,12 @@ const AddUser = () => {
   const onSubmit = async (data) => {
     try {
         //setLoading(true);
-        //await http.post('/author', data);
+        await http.post('/signup', {
+          "name":data.name,
+          "username":data.username,
+          "password":data.password,
+          "roles":[role]
+        });
         console.log("Dtaaa", data);
         toast.success('Autor cadastrado com sucesso!');
         setTimeout(() => {
@@ -115,16 +120,6 @@ const AddUser = () => {
                   {...register("confirmPassword")}
                   error={!!errors.confirmPassword}
                   helperText={errors.confirmPassword?.message}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="Nuit"
-                  placeholder="Nuit"
-                  fullWidth
-                  {...register("nuit")}
-                  error={!!errors.nuit}
-                  helperText={errors.nuit?.message}
                 />
               </Grid>
               <Grid item xs={6}>

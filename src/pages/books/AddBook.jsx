@@ -30,6 +30,14 @@ const AddBook = () => {
 
   const onSubmit = async (data) => {
     try {
+      await http.post('/book', {
+        "author": author,
+        "publisher": publisher,
+        "PublicherDate": data.PublicherDate,
+        "gender": data.gender,
+        "Title": data.title,
+        "edition": data.edition,
+    });
       console.log('Form Data:', {
         "author": author,
         "publisher": publisher,

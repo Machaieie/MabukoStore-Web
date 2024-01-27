@@ -21,22 +21,29 @@ const Users = () => {
   const [users, setUsers] = useState([]);
 
   const fetchData = async () =>{
-    const response = await http.get('/users');
+    const response = await http.get('/auth/alluser');
     console.log(response)
     const data = response.data.map(publisher => ({
       id: publisher.id,
       name: publisher.name,
       username: publisher.username,
-      roles: publisher.roles,
+      roles: publisher.roles.role,
       
     }));
+    setUsers(data);
+    console.log(response.data.map(roles =>({
+      roles: roles.roles,
+    })))
   }
 
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <Grid container>
       <Grid item xs={12} >
         <Card>
-          <BookTable rows={rows} headers={headers}/>
+          <BookTable rows={users} headers={headers}/>
         </Card>
       </Grid>
     </Grid>
