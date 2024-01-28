@@ -17,7 +17,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const AdminLayout = ({ children }) => {
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3, marginLeft:30 }}>
+    <Box component="main" 
+    sx={{ 
+      flexGrow: 1,
+        p: 3,
+        marginLeft: 30,
+        maxWidth: '100%',
+        overflowX: 'hidden'
+      }}>
       <CssBaseline />
       <DrawerHeader />
       <Sidenav />

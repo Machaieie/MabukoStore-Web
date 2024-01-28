@@ -4,59 +4,84 @@ import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
 import CardContent from '@mui/joy/CardContent';
-import CardOverflow from '@mui/joy/CardOverflow';
+import CardOverflow from '@mui/joy/CardOverflow'
+import IconButton from '@mui/joy/IconButton';;
 import Typography from '@mui/joy/Typography';
 import BakeryDiningIcon from '@mui/icons-material/BakeryDining';
 import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog'
+import ModalClose from '@mui/joy/ModalClose';
+import Sheet from '@mui/joy/Sheet';
+import { Box } from '@mui/material';
+import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
+import BookIcon from '@mui/icons-material/Book';
 
-const PromotionCard = ({ title, content, btninfo }) => {
+const PromotionCard = ({ title, content, btninfo, modalTitle, cardTitle, promoPrice, imgsource, validDate}) => {
     const [open, setOpen] = useState(false);
     return (
         <>
-            <Modal open={open} onClose={() => setOpen(false)}>
-                <ModalDialog
-                    aria-labelledby="nested-modal-title"
-                    aria-describedby="nested-modal-description"
-                    sx={(theme) => ({
-                        [theme.breakpoints.only('xs')]: {
-                            top: 'unset',
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            borderRadius: 0,
-                            transform: 'none',
-                            maxWidth: 'unset',
-                        },
-                    })}
+            <Modal
+                aria-labelledby="modal-title"
+                aria-describedby="modal-desc"
+                open={open}
+                onClose={() => setOpen(false)}
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  }}
+            >
+                <Sheet
+                    variant="outlined"
+                    sx={{
+                        maxWidth: 500,
+                        borderRadius: 'md',
+                        p: 3,
+                        boxShadow: 'lg',
+                        
+                    }}
                 >
-                    <Typography id="nested-modal-title" level="h2">
-                        Are you absolutely sure?
-                    </Typography>
-                    <Typography id="nested-modal-description" textColor="text.tertiary">
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
-                    </Typography>
-                    <Box
-                        sx={{
-                            mt: 1,
-                            display: 'flex',
-                            gap: 1,
-                            flexDirection: { xs: 'column', sm: 'row-reverse' },
-                        }}
+                    <ModalClose variant="plain" sx={{ m: 1 }} />
+                    <Typography
+                        component="h2"
+                        id="modal-title"
+                        level="h4"
+                        textColor="inherit"
+                        fontWeight="lg"
+                        mb={1}
                     >
-                        <Button variant="solid" color="primary" onClick={() => setOpen(false)}>
-                            Continue
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="neutral"
-                            onClick={() => setOpen(false)}
-                        >
-                            Cancel
-                        </Button>
-                    </Box>
-                </ModalDialog>
+                        {modalTitle}
+                    </Typography>
+                    <Typography id="modal-desc" textColor="text.tertiary">
+                        <Card sx={{ width: 320 }}>
+                            <div>
+                                <Typography level="title-lg">{cardTitle}</Typography>
+                                <Typography level="body-sm">{validDate}</Typography>
+                                <IconButton
+                                    aria-label="bookmark Bahamas Islands"
+                                    variant="plain"
+                                    color="neutral"
+                                    size="sm"
+                                    sx={{ position: 'absolute', top: '0.875rem', right: '0.5rem' }}
+                                >
+                                    <BookmarkAdd />
+                                </IconButton>
+                            </div>
+                            <AspectRatio minHeight="120px" maxHeight="200px">
+                                <img
+                                    src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
+                                    srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
+                                    loading="lazy"
+                                    alt=""
+                                />
+                            </AspectRatio>
+                            <CardContent orientation="horizontal">
+                                <div>
+                                    <Typography level="body-xs">Total price:</Typography>
+                                    <Typography fontSize="lg" fontWeight="lg">
+                                       { promoPrice} MZN
+                                    </Typography>
+                                </div>
+                                
+                            </CardContent>
+                        </Card>
+                    </Typography>
+                </Sheet>
             </Modal>
             <Card
                 data-resizable
@@ -65,12 +90,12 @@ const PromotionCard = ({ title, content, btninfo }) => {
                     alignItems: 'center',
                     width: 343,
                     overflow: 'auto',
-                    resize: 'horizontal',
-                    '--icon-size': '100px',
+                    resize: '200px',
+                    '--icon-size': '120px',
                 }}
             >
-                <CardOverflow variant="solid" color="warning">
-                    <AspectRatio
+                <CardOverflow variant="solid" color="primary">
+                <AspectRatio
                         variant="outlined"
                         color="warning"
                         ratio="1"
@@ -85,14 +110,14 @@ const PromotionCard = ({ title, content, btninfo }) => {
                         }}
                     >
                         <div>
-                            <BakeryDiningIcon color="warning" sx={{ fontSize: '4rem' }} />
+                        <BookIcon color="primary" sx={{ fontSize: '4rem' }} />
                         </div>
                     </AspectRatio>
                 </CardOverflow>
                 <Typography level="title-lg" sx={{ mt: 'calc(var(--icon-size) / 2)' }}>
                     🎊 {title} 🎊
                 </Typography>
-                <CardContent sx={{ maxWidth: '40ch' }}>
+                <CardContent sx={{ maxWidth: '40ch'}}>
                     {content}
                 </CardContent>
                 <CardActions
@@ -103,7 +128,7 @@ const PromotionCard = ({ title, content, btninfo }) => {
                         width: 'clamp(min(100%, 160px), 50%, min(100%, 200px))',
                     }}
                 >
-                    <Button variant="solid" color="warning" onClick={() => setOpen(true)}>
+                    <Button variant="solid" color="primary" onClick={() => setOpen(true)}>
                         Mais informacões
                     </Button>
 
