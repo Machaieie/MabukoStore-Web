@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
 import logo from "../../assets/png/backgraundpage.png";
 import BookSelect from '../../components/Dropdown/BookSelect';
@@ -12,7 +12,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import http from '../../http.common'; 
 const today = dayjs();
 
 const AddBook = () => {
@@ -21,13 +21,33 @@ const AddBook = () => {
     mode: "onBlur"
   });
   const [author, setAuthor] = useState('');
+  const [autores, setAutores] = useState([]);
+  const [autorSelecionado, setAutorSelecionado] = useState('');
+  const [editoraSelecionada, setEditoraSelecionada] = useState('');
+  const [editoras, setEditoras] = useState([]);
   const [publisher, setPublisher] = useState('');
   const [selectedDate, setSelectedDate] = useState();
   const [mafia, setMafia] = useState();
   const [increment, setIncrement] = useState();
 
 
+  const fetchData = async() =>{
+    const autores = await http.get("/authors");
+    setAutores(autores.data)
+    
 
+    const editoras = await http.get("/publishers");
+    setEditoras(editoras.data);
+  }
+
+  const handleChangeEditora = (event) => {
+    setEditoraSelecionada(event.target.value);
+  };
+
+  const handleChangeAutor = (event) => {
+    setAutorSelecionado(event.target.value);
+  };
+  
   const onSubmit = async (data) => {
     try {
       await http.post('/book', {
@@ -52,33 +72,14 @@ const AddBook = () => {
     }
   };
 
-  const bookOptions = [
-    { value: 'Jose', label: 'Jose' },
-    { value: 'Ana', label: 'Ana' },
-  ];
-
-  const publisherOptions = [
-    { value: 'Plural Editores', label: 'Plural Editores' },
-    { value: 'Person', label: 'Person' },
-  ];
+ 
 
 
-  const handleDateChange = (event) => {
-    setMafia( event["$D","/","$y"])
-    setIncrement(mafia + 1)
-    setSelectedDate(event);
-    console.log("Data =>", event["$D"], "/", event["$M"]+1, "/", event["$y"])
+ 
 
-  };
-  const handleAuthorChange = (event) => {
-    setAuthor(event.target.value);
-
-  };
-
-  const handlePublisherChange = (event) => {
-    setPublisher(event.target.value);
-  };
-
+  useEffect(() => {
+    fetchData();
+  }, []); 
   return (
     <Box
       sx={{
@@ -108,19 +109,19 @@ const AddBook = () => {
               <Grid item xs={6}>
                 <BookSelect
                   label="Autor"
-                  onChange={handleAuthorChange}
-                  value={author}
-                  options={bookOptions}
+                  onChange={handleChangeAutor}
+                  value={autorSelecionado}
+                  options={autores}
                   name="author"
                 />
               </Grid>
               <Grid item xs={6}>
                 <BookSelect
                   label="Editora"
-                  onChange={handlePublisherChange}
-                  value={publisher}
-                  options={publisherOptions}
-                  name="publisher"
+                  onChange={handleChangeEditora}
+                  value={editoraSelecionada}
+                  options={editoras}
+                  name="editora"
                 />
               </Grid>
               <Grid item xs={6}>
