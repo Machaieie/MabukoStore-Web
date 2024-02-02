@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import http from '../../http.common';
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 
@@ -25,16 +26,18 @@ const LoginPage = () => {
   });
   const { login } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
-      setLoading(true);
-      await http.post('/auth/login', data);
+      
+      const response =await http.post('/auth/login', data);
+      console.log("response =>",response)
       toast.success('Bem vindo!');
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-      reset();
+      if(response.status === 200 ){
+        navigate("/");
+      }
+   
+      
     } catch (error) {
       toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
     }

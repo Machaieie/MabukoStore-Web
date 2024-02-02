@@ -18,11 +18,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {    
     try {
-      const response = await http.post("/auth/login", {
-        username: username,
-        password: password,
-      });
+      const response = await http.post("/auth/login?username=" + username + "&password=" + password);
   
+      if(response.status === 200 ){
+        navigate("/");
+      }
       const principal = {
         id: response.data.id,
         username: response.data.username,
@@ -35,18 +35,15 @@ export const AuthProvider = ({ children }) => {
       
       setUser(principal);
       checkIsCompetitor(response.data.roleCode);
-      localStorage.setItem("principal", JSON.stringify(principal));
+      localStorage.setItem("User");
+      // localStorage.setItem("principal", JSON.stringify(principal));
       
   
       
      
       //const userLoggedIn =  await http.get("/users/"+username +"/"+password);
 
-      // if(principal.passwordChanged === 1 ||principal.passwordChanged ===true){
-        //   navigate("/admin/dashboard");
-        // }else{
-        //   navigate("/admin/passwordUpdate")
-        // }
+      
   
     } catch (error) {
       toast.error("Utilizador ou senha inválidos");

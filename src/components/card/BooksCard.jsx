@@ -6,28 +6,42 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import Typography from '@mui/joy/Typography';
 
-const BooksCard = ({ title, content, circularvalue, softtxt, solidtxt, modalTitle, modalBody}) => {
+const BooksCard = ({ title, content, circularvalue, modalTitle, modalBody, icon}) => {
     const [open, setOpen] = useState(false);
 
     return (
-        <><Card variant="solid" color="primary" invertedColors>
+        <><Card variant="solid" color="primary" invertedColors sx={{
+            minWidth: 300,
+            margin: "auto",
+            height: 200,
+        }}>
             <CardContent orientation="horizontal">
-                <CircularProgress size="lg" determinate value={circularvalue}>
-
+                <CircularProgress size="lg" determinate  value={circularvalue}>
+                <SvgIcon>
+                {icon}
+                </SvgIcon>
                 </CircularProgress>
                 <CardContent>
                     <Typography level="body-md">{title}</Typography>
                     <Typography level="h2">{content}</Typography>
                 </CardContent>
+
+                
             </CardContent>
 
             <CardActions>
-                <Button variant="soft" size="sm" onClick={() => setOpen(true)}>
-                    Mais informacões
-                </Button>
-                <Button variant="solid" size="sm" >
-                    Adicionar
-                </Button>
+            <Button
+          variant="soft"
+          size="md"
+          color="primary"
+          aria-label="Explore Bahamas Islands"
+          sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+          onClick={() => setOpen(true)}
+        >
+          Detalhes
+        </Button>
+                
+                
             </CardActions>
         </Card>
             <Modal open={open} onClose={() => setOpen(false)}>
