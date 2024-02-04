@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const BookSelect = ({ value, label, options, onChange, name, key }) => {
+const BookSelect = ({ value, label, options, onChange, name, key, size }) => {
     return (
         <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
@@ -15,6 +15,10 @@ const BookSelect = ({ value, label, options, onChange, name, key }) => {
                     id="demo-simple-select"
                     value={value}
                     label={label}
+                    //size={size}
+                    sx={{
+                        width: size
+                    }}
                     name={name}
                     onChange={onChange}
                 >
