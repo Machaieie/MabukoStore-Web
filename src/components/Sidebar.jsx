@@ -37,7 +37,9 @@ import {
   PersonAddAlt1,
   AddBusiness,
   GroupAdd,
-  BookmarkAdd
+  BookmarkAdd,
+  AddShoppingCartOutlined,
+  Balance
 } from '@mui/icons-material';
 
 const drawerWidth = 240;
@@ -76,6 +78,7 @@ function Sidebar() {
     authors: false,
     publishers: false,
     users: false,
+    sales: false,
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -141,7 +144,7 @@ function Sidebar() {
               <ListItemIcon>
                 <Dashboard sx={{
                   color: "#fff"
-                }}/>
+                }} />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItemButton>
@@ -152,7 +155,7 @@ function Sidebar() {
               <ListItemIcon>
                 <Book sx={{
                   color: "#fff"
-                }}/>
+                }} />
               </ListItemIcon>
               <ListItemText primary="Livros" />
               {openMenu.books ? <ExpandLess /> : <ExpandMore />}
@@ -162,16 +165,16 @@ function Sidebar() {
                 <NestedListItem button component={Link} to="/addBook">
                   <ListItemIcon>
                     <BookmarkAdd sx={{
-                  color: "#fff"
-                }}/>
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
                 <NestedListItem button component={Link} to="/listBooks">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
-                  color: "#fff"
-                }} />
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Listar" />
                 </NestedListItem>
@@ -192,16 +195,16 @@ function Sidebar() {
                 <NestedListItem button component={Link} to="/addAuthors">
                   <ListItemIcon>
                     <GroupAdd sx={{
-                  color: "#fff"
-                }}/>
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
                 <NestedListItem button component={Link} to="/listAuthors">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
-                  color: "#fff"
-                }}/>
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Listar" />
                 </NestedListItem>
@@ -212,7 +215,7 @@ function Sidebar() {
               <ListItemIcon>
                 <Store sx={{
                   color: "#fff"
-                }}/>
+                }} />
               </ListItemIcon>
               <ListItemText primary="Editoras" />
               {openMenu.publishers ? <ExpandLess /> : <ExpandMore />}
@@ -222,18 +225,47 @@ function Sidebar() {
                 <NestedListItem button component={Link} to="/addPublisher">
                   <ListItemIcon>
                     <AddBusiness sx={{
-                  color: "#fff"
-                }}/>
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
                 <NestedListItem button component={Link} to="/listPublisher">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
-                  color: "#fff"
-                }}/>
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Listar" />
+                </NestedListItem>
+              </List>
+            </Collapse>
+            <ListItemButton onClick={() => handleMenuClick('sales')}>
+              <ListItemIcon>
+                <Balance sx={{
+                  color: "#fff"
+                }} />
+              </ListItemIcon>
+              <ListItemText primary="Vendas" />
+              {openMenu.sales ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openMenu.sales} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NestedListItem button component={Link} to="/addSale">
+                  <ListItemIcon>
+                    <AddShoppingCartOutlined sx={{
+                      color: "#fff"
+                    }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Adicionar" />
+                </NestedListItem>
+                <NestedListItem button component={Link} to="/listSales">
+                  <ListItemIcon>
+                    <FormatListBulleted sx={{
+                      color: "#fff"
+                    }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Verificar" />
                 </NestedListItem>
               </List>
             </Collapse>
@@ -242,7 +274,7 @@ function Sidebar() {
               <ListItemIcon>
                 <Group sx={{
                   color: "#fff"
-                }}/>
+                }} />
               </ListItemIcon>
               <ListItemText primary="Usuarios" />
               {openMenu.users ? <ExpandLess /> : <ExpandMore />}
@@ -252,16 +284,16 @@ function Sidebar() {
                 <NestedListItem button component={Link} to="/addUser">
                   <ListItemIcon>
                     <PersonAddAlt1 sx={{
-                  color: "#fff"
-                }}/>
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
                 <NestedListItem button component={Link} to="/listusers">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
-                  color: "#fff"
-                }}/>
+                      color: "#fff"
+                    }} />
                   </ListItemIcon>
                   <ListItemText primary="Listar" />
                 </NestedListItem>
@@ -272,7 +304,7 @@ function Sidebar() {
               <ListItemIcon>
                 <ExitToApp sx={{
                   color: "#fff"
-                }}/>
+                }} />
               </ListItemIcon>
               <ListItemText primary="Sair" />
             </ListItemButton>

@@ -13,6 +13,8 @@ import AddAuthor from "./pages/authors/AddAuthor";
 import AddBook from "./pages/books/AddBook";
 import AddPublisher from "./pages/publishers/AddPublisher";
 import AddUser from "./pages/users/AddUser";
+import AddSale from "./pages/sales/AddSale";
+import ListSales from "./pages/sales/ListSales"
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
               <Route path="/addPublisher" element={<AddPublisher />}></Route>
               <Route path="/addBook" element={<AddBook />}></Route>
               <Route path="/addAuthors" element={<AddAuthor />}></Route>
+              <Route path="/addSale" element={<AddSale />}></Route>
+              <Route path="/listSales" element={<ListSales />}></Route>
             </Route>
             <Route path="/logout" element={<LoginPage />}></Route>
           </Routes>

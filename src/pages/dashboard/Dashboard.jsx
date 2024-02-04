@@ -80,6 +80,7 @@ const ProfitIcon = (
           <BooksCard
             title="Margem de Lucro"
             modalTitle="Lucros"
+            modalBody={`Acrescimo de vendas`}
             content={`${sales} %`}
             icon={ProfitIcon}
           />
@@ -88,6 +89,7 @@ const ProfitIcon = (
           <BooksCard
             title="Carteira"
             modalTitle="Carteira"
+            modalBody={`M-pesa: Emola: Numerário: `}
             content={`${sales} MZN`}
             icon={WalletIcon}
           />
