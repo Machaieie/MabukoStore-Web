@@ -10,7 +10,7 @@ import { promotionSchema } from '../../services/SchemaService';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import BookSelect from '../../components/Dropdown/BookSelect';
+import PromotionSelect from '../../components/Dropdown/PromotionSelect';
 const headers = [
   { key: 'id', label: 'ID', align: 'left' },
   { key: 'title', label: 'Titulo', align: 'left' },
@@ -26,8 +26,9 @@ const headers = [
 
 const Book = () => {
   const [book, setBook] = useState([])
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [livroSelecionado, setLivroSelecionado] = useState('');
+  const [livro, setLivro] = useState([])
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(promotionSchema),
@@ -49,6 +50,9 @@ const Book = () => {
       publisher: book.publisher.name,
     }));
     setBook(data);
+    setLivro(data)
+    console.log("Livros =>",data)
+
   }
 
   const onSubmit = async (data) => {
@@ -60,7 +64,7 @@ const Book = () => {
     }
   };
   const handleChangeBook = (event) => {
-    setAutorSelecionado(event.target.value);
+    setLivroSelecionado(event.target.value);
   };
 
   useEffect(() => {
@@ -93,7 +97,9 @@ const Book = () => {
             })}
           >
             <ModalClose />
-            <Typography id="nested-modal-title" level="h2">
+            <Typography id="nested-modal-title" sx={{
+              margin: "auto"
+            }} level="h2">
               Adicionar Promocão
             </Typography>
 
@@ -111,11 +117,11 @@ const Book = () => {
                   marginLeft: "100px"
                 }}>
                   <Grid item xs={6}>
-                    <BookSelect
+                    <PromotionSelect
                       label="Livro"
                       onChange={handleChangeBook}
                       value={livroSelecionado}
-                      options={book}
+                      options={livro}
                       name="book"
                     />
                   </Grid>
@@ -129,7 +135,26 @@ const Book = () => {
                       helperText={errors.promotionPrice?.message}
                     />
                   </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Data de Inicio"
+                      type='date'
+                      placeholder="Data de Inicio"
+                      fullWidth
+                      {...register("startDate")}
 
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Data de Término"
+                      type='date'
+                      placeholder="Data de Término"
+                      fullWidth
+                      {...register("endDate")}
+
+                    />
+                  </Grid>
                   <Grid item xs={12}>
                     <Button
                       type='submit'

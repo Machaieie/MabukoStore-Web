@@ -51,12 +51,6 @@ const ListSales = () => {
           </Card>
         </Grid>
       </Grid>
-      {/* exibir as vendas em intervalos de tempo
-          Vendas Diarias
-          Vendas Semanais
-          Vendas Mensais 
-          Vendas Anuais
-           */}
     </Box>
   )
 }
