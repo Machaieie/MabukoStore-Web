@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import PropTypes from 'prop-types';
 import Box from '@mui/joy/Box';
 import Table from '@mui/joy/Table';
@@ -43,18 +43,7 @@ function createData(title, author, publisher, price, amount) {
 
 const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+
 ];
 
 function labelDisplayedRows({ from, to, count }) {
@@ -269,6 +258,7 @@ const AddSale = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [livroSelecionado, setLivroSelecionado] = useState('');
   const [livro, setLivro] = useState([])
+  const [rows, setRows] = useState([]);
 
 
   const fetchData = async () => {
@@ -276,8 +266,20 @@ const AddSale = () => {
     setLivro(response.data)
   }
 
-  const handleChangeBook = (event) => {
-    setLivroSelecionado(event.target.value);
+
+  const handleChangeBook = (event, value) => {
+    if (value) {
+      const newBook = {
+        title: value.title,
+        author: value.author,
+        publisher: value.publisher,
+        price: value.price,
+        amount: value.amount,
+      };
+
+      const newRows = [...rows, newBook]; // Adiciona o novo livro às linhas existentes
+      setRows(newRows); // Atualiza o estado das linhas da tabela
+    }
   };
 
 
@@ -341,9 +343,9 @@ const AddSale = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 
-    useEffect(() => {
-      fetchData();
-    }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <Box>
       <Grid container spacing={2} >
@@ -353,9 +355,8 @@ const AddSale = () => {
             <Autocomplete
               placeholder="Pesquise o Livro"
               options={livro}
-              getOptionLabel={(option) => option.title}
+              getOptionLabel={(option) => option.title} // Assuming 'title' is the property to display
               filterOptions={filterOptions}
-
               sx={{ width: 300 }}
               onChange={handleChangeBook}
             />
@@ -507,6 +508,15 @@ const AddSale = () => {
               </tfoot>
             </Table>
           </Sheet>
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            type='submit'
+            variant="contained"
+            fullWidth
+            color="primary">
+            Prosseguir
+          </Button>
         </Grid>
       </Grid>
 

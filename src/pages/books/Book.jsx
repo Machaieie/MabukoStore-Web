@@ -57,7 +57,18 @@ const Book = () => {
 
   const onSubmit = async (data) => {
     try {
-
+      console.log("Promotion", {
+        "book_id":livroSelecionado,
+        "discount":data.promotionPrice,
+        "startDate":data.startDate,
+        "endDate":data.endDate,
+      })
+        await http.post("/promotion",{
+          "book_id":livroSelecionado,
+          "discount":data.promotionPrice,
+          "startDate":data.startDate,
+          "endDate":data.endDate,
+        })
 
     } catch (error) {
       toast.error(error.response?.data.message);
@@ -65,6 +76,7 @@ const Book = () => {
   };
   const handleChangeBook = (event) => {
     setLivroSelecionado(event.target.value);
+    console.log("id book ",event.target.value)
   };
 
   useEffect(() => {
@@ -127,8 +139,8 @@ const Book = () => {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      label="Preco promocional"
-                      placeholder="Preco promocional"
+                      label="Percentagem da Promocão em %"
+                      placeholder="Percentagem da Promocão em %"
                       fullWidth
                       {...register("promotionPrice")}
                       error={!!errors.promotionPrice}
