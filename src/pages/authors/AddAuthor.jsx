@@ -16,8 +16,8 @@ const AddAuthor = () => {
 
 
     const bookOptions = [
-        { value: 'Masculino', label: 'Masculino' },
-        { value: 'Feminino', label: 'Feminino' },
+        { id: 'Masculino', name: 'Masculino' },
+        { id: 'Feminino', name: 'Feminino' },
     ];
     const {
         reset,

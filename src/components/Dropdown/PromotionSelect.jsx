@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const PromotionSelect = ({value, label, options, onChange, title, key, size}) => {
+const PromotionSelect = ({value, label, options, onChange,  size}) => {
   return (
     <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
@@ -22,7 +22,7 @@ const PromotionSelect = ({value, label, options, onChange, title, key, size}) =>
                     onChange={onChange}
                 >
                     {options.map((option) => (
-                        <MenuItem key={option.id} value={option.title}>
+                        <MenuItem key={option.id} value={option.id}>
                             {option.title}
                         </MenuItem>
                     ))}
