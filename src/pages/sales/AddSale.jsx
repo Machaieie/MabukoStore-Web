@@ -259,27 +259,32 @@ const AddSale = () => {
   const [livroSelecionado, setLivroSelecionado] = useState('');
   const [livro, setLivro] = useState([])
   const [rows, setRows] = useState([]);
+  //const [quant, setQuant] = useState(1);
 
 
   const fetchData = async () => {
     const response = await http.get('/books');
     setLivro(response.data)
+    console.log("Livros =>",response.data)
   }
 
 
   const handleChangeBook = (event, value) => {
     if (value) {
       const newBook = {
+        id: value.id,
         title: value.title,
-        author: value.author,
-        publisher: value.publisher,
+        author: value.author.name,
+        publisher: value.publisher.name,
         price: value.price,
-        amount: value.amount,
       };
+     
 
-      const newRows = [...rows, newBook]; // Adiciona o novo livro às linhas existentes
-      setRows(newRows); // Atualiza o estado das linhas da tabela
+      const newRows = [...rows, newBook]; 
+      setRows(newRows);
+      console.log(newBook) 
     }
+    
   };
 
 
@@ -355,7 +360,7 @@ const AddSale = () => {
             <Autocomplete
               placeholder="Pesquise o Livro"
               options={livro}
-              getOptionLabel={(option) => option.title} // Assuming 'title' is the property to display
+              getOptionLabel={(option) => option.title} 
               filterOptions={filterOptions}
               sx={{ width: 300 }}
               onChange={handleChangeBook}

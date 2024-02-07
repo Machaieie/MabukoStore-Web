@@ -30,7 +30,7 @@ const Book = () => {
   const [livroSelecionado, setLivroSelecionado] = useState('');
   const [livro, setLivro] = useState([])
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {reset, register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(promotionSchema),
     mode: "onBlur"
   });
@@ -69,7 +69,7 @@ const Book = () => {
           "startDate":data.startDate,
           "endDate":data.endDate,
         })
-
+        reset()
     } catch (error) {
       toast.error(error.response?.data.message);
     }
