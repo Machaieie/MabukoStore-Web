@@ -16,7 +16,7 @@ import http from '../../http.common';
 const today = dayjs();
 
 const AddBook = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { reset, register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(bookSchema),
     mode: "onBlur"
   });
@@ -67,7 +67,7 @@ const AddBook = () => {
         "edition": data.edition,
         "price": data.price
       });
-      if (resposne.status ===200){
+      if (resposne.status ===201){
         toast.success('Autor cadastrado com sucesso!');
         setTimeout(() => {
             setLoading(false);
