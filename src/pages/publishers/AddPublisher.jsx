@@ -9,13 +9,14 @@ import http from '../../http.common';
 
 
 const AddPublisher = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, reset, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(publisherSchema),
     mode: "onBlur"
   });
   const onSubmit = async (data) => {
     try {
       await http.post('/publisher', data);
+      reset()
       console.log('Form Data:', data);
     } catch (error) {
       toast.error(error.response?.data.message);

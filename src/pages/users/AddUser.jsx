@@ -10,8 +10,8 @@ import { toast } from 'react-toastify';
 import http from '../../http.common';
 
 const RoleOptions = [
-  { value: 'Role_Admin', label: 'Administrador' },
-  { value: 'Role_Employee', label: 'Funcionario' },
+  { id: 'Role_Admin', name: 'Administrador' },
+  { id: 'Role_Employee', name: 'Funcionario' },
 ];
 
 const AddUser = () => {

@@ -24,17 +24,19 @@ const LoginPage = () => {
   } = useForm({
     resolver: yupResolver(loginRules),
   });
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
       
       const response =await http.post('/auth/login', data);
+      reset()
       console.log("response =>",response)
       toast.success('Bem vindo!');
       if(response.status === 200 ){
-        navigate("/");
+        //navigate("/");
+        console.log(user)
       }
    
       
