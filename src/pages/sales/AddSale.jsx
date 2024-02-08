@@ -271,21 +271,28 @@ const AddSale = () => {
 
   const handleChangeBook = (event, value) => {
     if (value) {
-      const newBook = {
-        id: value.id,
-        title: value.title,
-        author: value.author.name,
-        publisher: value.publisher.name,
-        price: value.price,
-      };
-     
-
-      const newRows = [...rows, newBook]; 
-      setRows(newRows);
-      console.log(newBook) 
-    }
+      const existingBookIndex = rows.findIndex(row => row.id === value.id);
+  
+      if (existingBookIndex !== -1) {
+        const updatedRows = [...rows];
+        updatedRows[existingBookIndex].amount += 1;
+        setRows(updatedRows);
+      } else {
+        const newBook = {
+          id: value.id,
+          title: value.title,
+          author: value.author.name,
+          publisher: value.publisher.name,
+          price: value.price,
+          amount: 1, 
+        };
     
+        const newRows = [...rows, newBook]; 
+        setRows(newRows);
+      }
+    }
   };
+  
 
 
   const handleRequestSort = (event, property) => {
