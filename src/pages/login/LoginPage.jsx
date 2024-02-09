@@ -1,9 +1,5 @@
-import React, { useState, useContext } from "react";
-import * as yup from "yup";
-import TextFieldBook from "../../components/textfields/TextFieldBook";
+import React, { useState, useContext, useEffect } from "react";
 import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
-import { Lock, AccountCircle } from "@mui/icons-material";
-import BookSubmitButton from "../../components/buttons/BookSubmitButton";
 import logo from "../../assets/png/logo-no-background.png";
 import { loginRules } from "../../services/SchemaService";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -11,11 +7,10 @@ import "./Login.css";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import http from '../../http.common';
 import { useNavigate } from "react-router-dom";
+import SuccessAlert from "../../components/alert/SucessAlert"; 
 
 const LoginPage = () => {
-
   const {
     reset,
     register,
@@ -24,24 +19,30 @@ const LoginPage = () => {
   } = useForm({
     resolver: yupResolver(loginRules),
   });
-  const { login } = useContext(AuthContext);
+
+  const { login, user } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false); 
   const navigate = useNavigate();
+
+ 
+
   const onSubmit = async (data) => {
     try {
-      
-      const response =await http.post('/auth/login', data);
-      console.log("response =>",response)
+      const response = await login(data.username, data.password);
+      reset();
+      setShowSuccess(true);
       toast.success('Bem vindo!');
-      if(response.status === 200 ){
-        navigate("/");
-      }
-   
       
+      setTimeout(() => {
+        setShowSuccess(false); // Defina showSuccess como false após 2 segundos
+      }, 2000);
     } catch (error) {
       toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
     }
   };
+  
+
   return (
     <Box
       sx={{
@@ -81,7 +82,6 @@ const LoginPage = () => {
                     {...register("username")}
                     error={!!errors.username}
                     helperText={errors.username?.message}
-
                   />
                 </Grid>
 
@@ -95,8 +95,6 @@ const LoginPage = () => {
                     {...register("password")}
                     error={!!errors.password}
                     helperText={errors.password?.message}
-
-
                   />
                 </Grid>
 
@@ -109,12 +107,12 @@ const LoginPage = () => {
                     Login
                   </Button>
                 </Grid>
-
               </Grid>
             </FormControl>
           </form>
         </CardContent>
       </Card>
+      {showSuccess && <SuccessAlert  mensagem="Usuario Logado com sucesso"/>}
     </Box>
   );
 };

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Grid } from "@mui/material";
+import React, { useState, useEffect } from 'react'
+import { Grid, Button } from "@mui/material";
 import PropTypes from 'prop-types';
 import Box from '@mui/joy/Box';
 import Table from '@mui/joy/Table';
@@ -19,6 +19,16 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
+import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
+import http from '../../http.common';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+
+const filterOptions = createFilterOptions({
+  matchFrom: 'start',
+  stringify: (option) => option.title,
+});
 
 
 function createData(title, author, publisher, price, amount) {
@@ -33,18 +43,7 @@ function createData(title, author, publisher, price, amount) {
 
 const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+
 ];
 
 function labelDisplayedRows({ from, to, count }) {
@@ -257,6 +256,44 @@ const AddSale = () => {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [livroSelecionado, setLivroSelecionado] = useState('');
+  const [livro, setLivro] = useState([])
+  const [rows, setRows] = useState([]);
+  //const [quant, setQuant] = useState(1);
+
+
+  const fetchData = async () => {
+    const response = await http.get('/books');
+    setLivro(response.data)
+    console.log("Livros =>",response.data)
+  }
+
+
+  const handleChangeBook = (event, value) => {
+    if (value) {
+      const existingBookIndex = rows.findIndex(row => row.id === value.id);
+  
+      if (existingBookIndex !== -1) {
+        const updatedRows = [...rows];
+        updatedRows[existingBookIndex].amount += 1;
+        setRows(updatedRows);
+      } else {
+        const newBook = {
+          id: value.id,
+          title: value.title,
+          author: value.author.name,
+          publisher: value.publisher.name,
+          price: value.price,
+          amount: 1, 
+        };
+    
+        const newRows = [...rows, newBook]; 
+        setRows(newRows);
+      }
+    }
+  };
+  
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -318,11 +355,24 @@ const AddSale = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <Box>
       <Grid container spacing={2} >
         <Grid item xs={12} sm={12} md={12}>
-          {/* barra de pesquisa em tempo real para poder adicionar novo produto na tabela */}
+          <FormControl id="filter-demo">
+            <FormLabel>Livro</FormLabel>
+            <Autocomplete
+              placeholder="Pesquise o Livro"
+              options={livro}
+              getOptionLabel={(option) => option.title} 
+              filterOptions={filterOptions}
+              sx={{ width: 300 }}
+              onChange={handleChangeBook}
+            />
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Sheet
@@ -470,6 +520,15 @@ const AddSale = () => {
               </tfoot>
             </Table>
           </Sheet>
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            type='submit'
+            variant="contained"
+            fullWidth
+            color="primary">
+            Prosseguir
+          </Button>
         </Grid>
       </Grid>
 

@@ -7,8 +7,9 @@ import BookSubmitButton from '../../components/buttons/BookSubmitButton';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authorSchema } from '../../services/SchemaService';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import http from '../../http.common';
+import SucessAlert from '../../components/alert/SucessAlert';
 
 const AddAuthor = () => {
     const [gender, setGender] = useState('');
@@ -16,8 +17,8 @@ const AddAuthor = () => {
 
 
     const bookOptions = [
-        { value: 'Masculino', label: 'Masculino' },
-        { value: 'Feminino', label: 'Feminino' },
+        { id: 'Masculino', name: 'Masculino' },
+        { id: 'Feminino', name: 'Feminino' },
     ];
     const {
         reset,
@@ -29,33 +30,29 @@ const AddAuthor = () => {
     });
     const handleChange = (event) => {
         setGender(event.target.value);
+        console.log("ja esta");
+        <SucessAlert />
     };
 
     const onSubmit = async (data) => {
         try {
-            setLoading(true);
-            await http.post('/author', {
-                "name":data.name,
-                "gender":gender,
-                "biography":data.biography,
-                "nationality":data.nationality
+
+            const response = await http.post('/author', {
+                "name": data.name,
+                "gender": gender,
+                "biography": data.biography,
+                "nationality": data.nationality
             });
-            // console.log("Dtaaa", {
-            //     "name":data.name,
-            //     "gender":gender,
-            //     "biography":data.biography,
-            //     "nationality":data.nationality
-            // });
             toast.success('Autor cadastrado com sucesso!');
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
             reset();
         } catch (error) {
             toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
         }
     };
 
+    const onNameChange = (data) => {
+        console.log("ja esta")
+    }
 
 
     return (
@@ -86,6 +83,7 @@ const AddAuthor = () => {
                             <Grid item xs={6}>
                                 <TextField
                                     label="Nome"
+                                    onChange={onNameChange}
                                     name="name"
                                     placeholder="nome"
                                     fullWidth

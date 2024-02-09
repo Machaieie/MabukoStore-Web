@@ -29,10 +29,11 @@ const bookSchema = yup.object({
   title: yup.string().required(REQUIRED_FIELD_MESSAGE),
   gender: yup.string().required(REQUIRED_FIELD_MESSAGE),
   edition: yup.string().required(REQUIRED_FIELD_MESSAGE),
+  price: yup.string().required(REQUIRED_FIELD_MESSAGE),
 })
 
 const promotionSchema = yup.object({
-  promotionPrice: yup.number().required(REQUIRED_FIELD_MESSAGE),
+  promotionPrice: yup.string().required(REQUIRED_FIELD_MESSAGE),
 })
 
 

@@ -12,29 +12,25 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import http from '../../http.common'; 
+import http from '../../http.common';
 const today = dayjs();
 
 const AddBook = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { reset, register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(bookSchema),
     mode: "onBlur"
   });
-  const [author, setAuthor] = useState('');
   const [autores, setAutores] = useState([]);
   const [autorSelecionado, setAutorSelecionado] = useState('');
   const [editoraSelecionada, setEditoraSelecionada] = useState('');
   const [editoras, setEditoras] = useState([]);
-  const [publisher, setPublisher] = useState('');
-  const [selectedDate, setSelectedDate] = useState();
-  const [mafia, setMafia] = useState();
-  const [increment, setIncrement] = useState();
+  const [isLoading, setLoading] = useState(false);
 
 
-  const fetchData = async() =>{
+  const fetchData = async () => {
     const autores = await http.get("/authors");
     setAutores(autores.data)
-    
+
 
     const editoras = await http.get("/publishers");
     setEditoras(editoras.data);
@@ -42,44 +38,57 @@ const AddBook = () => {
 
   const handleChangeEditora = (event) => {
     setEditoraSelecionada(event.target.value);
+    console.log("Editora selecionado", event.target.value)
   };
 
   const handleChangeAutor = (event) => {
     setAutorSelecionado(event.target.value);
+    console.log("Autor selecionado", event.target.value)
   };
-  
+
   const onSubmit = async (data) => {
-    try {
-      await http.post('/book', {
-        "author": author,
-        "publisher": publisher,
-        "PublicherDate": data.PublicherDate,
-        "gender": data.gender,
-        "Title": data.title,
-        "edition": data.edition,
+    console.log('Form Data:', {
+      "author_id": autorSelecionado,
+      "publisher_id": editoraSelecionada,
+      "publisherDate": data.PublicherDate,
+      "gender": data.gender,
+      "title": data.title,
+      "edition": data.edition,
+      "price": 500
     });
-      console.log('Form Data:', {
-        "author": author,
-        "publisher": publisher,
-        "PublicherDate": data.PublicherDate,
+    try {
+      setLoading(true);
+      const resposne = await http.post('/addBook', {
+        "author_id": autorSelecionado,
+        "publisher_id": editoraSelecionada,
+        "publisherDate": data.PublicherDate,
         "gender": data.gender,
-        "Title": data.title,
+        "title": data.title,
         "edition": data.edition,
+        "price": data.price
       });
-      
+      if (resposne.status ===201){
+        toast.success('Autor cadastrado com sucesso!');
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        reset();
+      }
+     
+
     } catch (error) {
       toast.error(error.response?.data.message);
     }
   };
 
- 
 
 
- 
+
+
 
   useEffect(() => {
     fetchData();
-  }, []); 
+  }, []);
   return (
     <Box
       sx={{
@@ -153,7 +162,7 @@ const AddBook = () => {
                   placeholder="Data de Publicacao"
                   fullWidth
                   {...register("PublicherDate")}
-                  
+
                 />
               </Grid>
               <Grid item xs={6}>
@@ -165,6 +174,17 @@ const AddBook = () => {
                   {...register("edition")}
                   error={!!errors.edition}
                   helperText={errors.edition?.message}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Preco"
+                  name="price"
+                  placeholder="Preco"
+                  fullWidth
+                  {...register("price")}
+                  error={!!errors.price}
+                  helperText={errors.price?.message}
                 />
               </Grid>
               <Grid item xs={12}>

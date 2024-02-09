@@ -10,7 +10,7 @@ import { promotionSchema } from '../../services/SchemaService';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import BookSelect from '../../components/Dropdown/BookSelect';
+import PromotionSelect from '../../components/Dropdown/PromotionSelect';
 const headers = [
   { key: 'id', label: 'ID', align: 'left' },
   { key: 'title', label: 'Titulo', align: 'left' },
@@ -26,10 +26,11 @@ const headers = [
 
 const Book = () => {
   const [book, setBook] = useState([])
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [livroSelecionado, setLivroSelecionado] = useState('');
+  const [livro, setLivro] = useState([])
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {reset, register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(promotionSchema),
     mode: "onBlur"
   });
@@ -49,18 +50,33 @@ const Book = () => {
       publisher: book.publisher.name,
     }));
     setBook(data);
+    setLivro(data)
+    console.log("Livros =>",data)
+
   }
 
   const onSubmit = async (data) => {
     try {
-
-
+      console.log("Promotion", {
+        "book_id":livroSelecionado,
+        "discount":data.promotionPrice,
+        "startDate":data.startDate,
+        "endDate":data.endDate,
+      })
+        await http.post("/promotion",{
+          "book_id":livroSelecionado,
+          "discount":data.promotionPrice,
+          "startDate":data.startDate,
+          "endDate":data.endDate,
+        })
+        reset()
     } catch (error) {
       toast.error(error.response?.data.message);
     }
   };
   const handleChangeBook = (event) => {
-    setAutorSelecionado(event.target.value);
+    setLivroSelecionado(event.target.value);
+    console.log("id book ",event.target.value)
   };
 
   useEffect(() => {
@@ -93,7 +109,9 @@ const Book = () => {
             })}
           >
             <ModalClose />
-            <Typography id="nested-modal-title" level="h2">
+            <Typography id="nested-modal-title" sx={{
+              margin: "auto"
+            }} level="h2">
               Adicionar Promocão
             </Typography>
 
@@ -111,25 +129,44 @@ const Book = () => {
                   marginLeft: "100px"
                 }}>
                   <Grid item xs={6}>
-                    <BookSelect
+                    <PromotionSelect
                       label="Livro"
                       onChange={handleChangeBook}
                       value={livroSelecionado}
-                      options={book}
+                      options={livro}
                       name="book"
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      label="Preco promocional"
-                      placeholder="Preco promocional"
+                      label="Percentagem da Promocão em %"
+                      placeholder="Percentagem da Promocão em %"
                       fullWidth
                       {...register("promotionPrice")}
                       error={!!errors.promotionPrice}
                       helperText={errors.promotionPrice?.message}
                     />
                   </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Data de Inicio"
+                      type='date'
+                      placeholder="Data de Inicio"
+                      fullWidth
+                      {...register("startDate")}
 
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Data de Término"
+                      type='date'
+                      placeholder="Data de Término"
+                      fullWidth
+                      {...register("endDate")}
+
+                    />
+                  </Grid>
                   <Grid item xs={12}>
                     <Button
                       type='submit'

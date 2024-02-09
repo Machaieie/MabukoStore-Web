@@ -10,46 +10,35 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isCompetitor, setIsCompetitor] = useState(false);
   const [loading, setLoading] = useState(true);
-  
+
 
   const navigate = useNavigate();
 
-  
 
-  const login = async (username, password) => {    
+
+  const login = async (username, password) => {
     try {
-      const response = await http.post("/auth/login?username=" + username + "&password=" + password);
-  
-      if(response.status === 200 ){
-        navigate("/");
+      const response = await http.post("/auth/login",{
+        "username":`${username}`,
+        "password":`${password}`
+      });
+      console.log("AuthResponse =>",response)
+      if (response.status === 200) {
+        const principal = {
+          id: response.data.id,
+          username: response.data.username,
+          name: response.data.name,
+          roleCode: response.data.roles[0].role,
+          accessToken: response.data.token,
+        };
+        localStorage.setItem("principal", JSON.stringify(principal));
       }
-      const principal = {
-        id: response.data.id,
-        username: response.data.username,
-        name: response.data.name,
-        roleCode: response.data.roles[0].role,
-        accessToken: response.data.token,
-      };
-      
-  
-      
-      setUser(principal);
-      checkIsCompetitor(response.data.roleCode);
-      localStorage.setItem("User");
-      // localStorage.setItem("principal", JSON.stringify(principal));
-      
-  
-      
-     
-      //const userLoggedIn =  await http.get("/users/"+username +"/"+password);
-
-      
-  
     } catch (error) {
       toast.error("Utilizador ou senha inválidos");
     }
   };
-  
+
+
   const checkIsCompetitor = (roleCode) => {
     let role = "ROLE_SELLER";
     let result = roleCode === role;
