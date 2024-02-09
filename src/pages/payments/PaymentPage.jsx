@@ -4,6 +4,9 @@ import TabList from '@mui/joy/TabList';
 import Tab from '@mui/joy/Tab';
 import TabPanel from '@mui/joy/TabPanel';
 import { Box, Card, Grid, CardHeader, TextField, Button } from "@mui/material"
+import  CardBank from "../../assets/png/iconsLogo/Card.png"
+import  Movitel from "../../assets/png/iconsLogo/Movitel.png"
+import  Vodacom from "../../assets/png/iconsLogo/Vodafone-mpesa.jpg"
 
 const PaymentPage = () => {
   return (
@@ -19,9 +22,9 @@ const PaymentPage = () => {
           <TabList>
             <Tab color='danger'>M-Pesa</Tab>
             <Tab color='warning'>E-Mola</Tab>
-            <Tab color='success'>Cartão</Tab>
+            <Tab color='primary'>Cartão</Tab>
           </TabList>
-          <TabPanel value={0}>
+          <TabPanel value={0} >
             <Grid
               container
               justifyContent="center"
@@ -49,6 +52,9 @@ const PaymentPage = () => {
                   />
                 </Grid>
             </Grid>
+            <div className='logo'>
+            <img src={Vodacom} alt="" style={{width: 300, marginLeft:700, borderRadius: 10}} srcset="" />
+           </div>
           </TabPanel>
           <TabPanel value={1}>
             
@@ -78,6 +84,9 @@ const PaymentPage = () => {
                   />
                 </Grid>
               </Grid>
+              <div className='logo'>
+            <img src={Movitel} alt="" style={{width:300, marginLeft:700}} srcset="" />
+           </div>
           </TabPanel>
           <TabPanel value={2}>
               <Grid
@@ -109,7 +118,9 @@ const PaymentPage = () => {
                   />
                 </Grid>
               </Grid>
-           
+           <div className='logo'>
+            <img src={CardBank} alt="" style={{width:300, marginLeft:700}} srcset="" />
+           </div>
           </TabPanel>
         </Tabs>
         <Button
