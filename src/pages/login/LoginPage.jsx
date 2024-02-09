@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
 import logo from "../../assets/png/logo-no-background.png";
 import { loginRules } from "../../services/SchemaService";
@@ -8,9 +8,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import SuccessAlert from "../../components/alert/SucessAlert"; 
 
 const LoginPage = () => {
-
   const {
     reset,
     register,
@@ -19,19 +19,30 @@ const LoginPage = () => {
   } = useForm({
     resolver: yupResolver(loginRules),
   });
+
   const { login, user } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false); 
   const navigate = useNavigate();
+
+ 
+
   const onSubmit = async (data) => {
     try {
-      
       const response = await login(data.username, data.password);
-      reset()
+      reset();
+      setShowSuccess(true);
       toast.success('Bem vindo!');
+      
+      setTimeout(() => {
+        setShowSuccess(false); // Defina showSuccess como false após 2 segundos
+      }, 2000);
     } catch (error) {
       toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
     }
   };
+  
+
   return (
     <Box
       sx={{
@@ -71,7 +82,6 @@ const LoginPage = () => {
                     {...register("username")}
                     error={!!errors.username}
                     helperText={errors.username?.message}
-
                   />
                 </Grid>
 
@@ -85,8 +95,6 @@ const LoginPage = () => {
                     {...register("password")}
                     error={!!errors.password}
                     helperText={errors.password?.message}
-
-
                   />
                 </Grid>
 
@@ -99,12 +107,12 @@ const LoginPage = () => {
                     Login
                   </Button>
                 </Grid>
-
               </Grid>
             </FormControl>
           </form>
         </CardContent>
       </Card>
+      {showSuccess && <SuccessAlert  mensagem="Usuario Logado com sucesso"/>}
     </Box>
   );
 };
