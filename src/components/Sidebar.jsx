@@ -129,7 +129,7 @@ function Sidebar() {
         anchor="left"
       >
         <List sx={{
-          backgroundColor: "#4285F4",
+          backgroundColor: "blue",
           color: "#fff",
           height: "180vh"
         }}>
