@@ -1,54 +1,48 @@
-import * as React from 'react';
-import { Grid, Box, useMediaQuery } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Grid, Box } from "@mui/material";
 import PromotionCard from '../../components/card/PromotionCard';
+import http from '../../http.common';
 
 const Home = () => {
+  const [promotions, setPromotions] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await http.get('/promotions');
+      const data = response.data.map(promo => ({
+        id: promo.id,
+        idBook: promo.book.id,
+        startdate: promo.startDate,
+        endDate: promo.endDate,
+        discount: promo.discount,
+        bookTitle: promo.book.title
+      }));
+      setPromotions(data);
+      console.log("Promoções => ", response.data);
+    } catch (error) {
+      console.error('Erro ao obter promoções:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Box>
-      <Grid container spacing={4} sx={{
-        margin: "auto"
-      }}>
-        <Grid item xs={12} sm={12} md={6}>
-          <PromotionCard
-            title="Promocão"
-            content="Code in PHP"
-            modalTitle="Code in PHP"
-            modalBody="Temos uma variedade de promocões para si, aproveite esta grande promocao "
-            validDate="14 de Janeiro a 29 de fevereiro"
-            promoPrice="880"
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-          <PromotionCard
-            title="Promocão"
-            content="Java Cean Code"
-            modalTitle="Java Cean Code"
-            modalBody="Temos uma variedade de promocoes para si, aproveite esta grande promocao "
-            validDate="14 de Janeiro a 29 de fevereiro"
-            promoPrice="380"
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-          <PromotionCard
-            title="Promocão"
-            content="Code in PHP"
-            modalTitle="Code in PHP"
-            modalBody="Temos uma variedade de promocões para si, aproveite esta grande promocao "
-            validDate="14 de Janeiro a 29 de fevereiro"
-            promoPrice="880"
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-          <PromotionCard
-            title="Promocão"
-            content="Java Cean Code"
-            modalTitle="Java Cean Code"
-            modalBody="Temos uma variedade de promocoes para si, aproveite esta grande promocao "
-            validDate="14 de Janeiro a 29 de fevereiro"
-            promoPrice="380"
-          />
-        </Grid>
+      <Grid container spacing={4} sx={{ margin: "auto" }}>
+        {promotions.map(promo => (
+          <Grid key={promo.id} item xs={12} sm={12} md={6}>
+            <PromotionCard
+              title={`Promoção ${promo.id}`}
+              content={`Livro: ${promo.bookTitle}`}
+              modalTitle={`${promo.bookTitle}`}
+              modalBody={`Temos uma variedade de promoções para você. Aproveite esta grande promoção!`}
+              validDate={`Promoção válida de ${promo.startdate} á ${promo.endDate}`}
+              promoPrice={`${promo.discount}`}
+            />
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
