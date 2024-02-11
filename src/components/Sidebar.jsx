@@ -16,6 +16,7 @@ import {
   Divider,
   Box
 } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/system';
 import logoImage from '../assets/png/sidelogo.png';
 
@@ -82,7 +83,7 @@ function Sidebar() {
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const navigate = useNavigate();
   const handleMenuClick = (menu) => {
     setOpenMenu((prevOpenMenu) => ({
       ...prevOpenMenu,
@@ -135,7 +136,7 @@ function Sidebar() {
         }}>
           <ListItemButton>
             <LogoContainer>
-              <LogoImage src={logoImage} alt="Logo" />
+              <LogoImage src={logoImage} onClick={() => navigate("/")} alt="Logo" />
             </LogoContainer>
           </ListItemButton>
           <Divider />

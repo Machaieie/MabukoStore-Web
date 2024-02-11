@@ -14,6 +14,7 @@ import Sheet from '@mui/joy/Sheet';
 import { Box } from '@mui/material';
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
 import BookIcon from '@mui/icons-material/Book';
+import Books from "../../assets/png/iconsLogo/books.jpg"
 
 const PromotionCard = ({ title, content, btninfo, modalTitle, cardTitle, promoPrice, imgsource, validDate}) => {
     const [open, setOpen] = useState(false);
@@ -52,29 +53,16 @@ const PromotionCard = ({ title, content, btninfo, modalTitle, cardTitle, promoPr
                             <div>
                                 <Typography level="title-lg">{cardTitle}</Typography>
                                 <Typography level="body-sm">{validDate}</Typography>
-                                <IconButton
-                                    aria-label="bookmark Bahamas Islands"
-                                    variant="plain"
-                                    color="neutral"
-                                    size="sm"
-                                    sx={{ position: 'absolute', top: '0.875rem', right: '0.5rem' }}
-                                >
-                                    <BookmarkAdd />
-                                </IconButton>
+                                
                             </div>
                             <AspectRatio minHeight="120px" maxHeight="200px">
-                                <img
-                                    src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-                                    srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
-                                    loading="lazy"
-                                    alt=""
-                                />
+                               <img src={Books}  alt="" srcset="" />
                             </AspectRatio>
                             <CardContent orientation="horizontal">
                                 <div>
-                                    <Typography level="body-xs">Total price:</Typography>
+                                    <Typography level="body-xs">Desconto de:</Typography>
                                     <Typography fontSize="lg" fontWeight="lg">
-                                       { promoPrice} MZN
+                                       { promoPrice} %
                                     </Typography>
                                 </div>
                                 
