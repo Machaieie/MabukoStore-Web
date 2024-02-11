@@ -26,7 +26,7 @@ const SuccessAlert = ({mensagem,}) => {
       <Stack spacing={1}>
         <Alert
           size="lg"
-          color="primary"
+          color="success"
           variant="solid"
           invertedColors
           startDecorator={

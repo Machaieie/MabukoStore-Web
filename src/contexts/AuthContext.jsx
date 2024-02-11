@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 import http from "../http.common";
 
 
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isCompetitor, setIsCompetitor] = useState(false);
   const [loading, setLoading] = useState(true);
-
+ // const [loginSuccess, setLoginSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,11 +19,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await http.post("/auth/login",{
-        "username":`${username}`,
-        "password":`${password}`
+      const response = await http.post("/auth/login", {
+        "username": `${username}`,
+        "password": `${password}`
       });
-      console.log("AuthResponse =>",response)
+      console.log("AuthResponse =>", response)
       if (response.status === 200) {
         const principal = {
           id: response.data.id,
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }) => {
           accessToken: response.data.token,
         };
         localStorage.setItem("principal", JSON.stringify(principal));
+        navigate("/")
       }
     } catch (error) {
       toast.error("Utilizador ou senha inválidos");
@@ -72,7 +74,9 @@ export const AuthProvider = ({ children }) => {
         loading,
       }}
     >
+      
       {children}
+
     </AuthContext.Provider>
   );
 };

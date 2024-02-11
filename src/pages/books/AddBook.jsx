@@ -13,6 +13,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import http from '../../http.common';
+import SucessAlert from '../../components/alert/SucessAlert';
+
 const today = dayjs();
 
 const AddBook = () => {
@@ -25,6 +27,8 @@ const AddBook = () => {
   const [editoraSelecionada, setEditoraSelecionada] = useState('');
   const [editoras, setEditoras] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
 
 
   const fetchData = async () => {
@@ -67,24 +71,15 @@ const AddBook = () => {
         "edition": data.edition,
         "price": data.price
       });
-      if (resposne.status ===201){
-        toast.success('Autor cadastrado com sucesso!');
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-        reset();
-      }
-     
-
+      reset();
+      setShowSuccess(true);
+            setTimeout(() => {
+                setShowSuccess(false); 
+              }, 2000);
     } catch (error) {
       toast.error(error.response?.data.message);
     }
   };
-
-
-
-
-
 
   useEffect(() => {
     fetchData();
@@ -201,6 +196,7 @@ const AddBook = () => {
         </CardContent>
 
       </Card>
+      {showSuccess && <SucessAlert  mensagem="Livro adicionado  com sucesso"/>}
     </Box>
   )
 }

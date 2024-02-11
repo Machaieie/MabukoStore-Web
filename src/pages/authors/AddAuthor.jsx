@@ -14,7 +14,7 @@ import SucessAlert from '../../components/alert/SucessAlert';
 const AddAuthor = () => {
     const [gender, setGender] = useState('');
     const [isLoading, setLoading] = useState(false);
-
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const bookOptions = [
         { id: 'Masculino', name: 'Masculino' },
@@ -31,7 +31,7 @@ const AddAuthor = () => {
     const handleChange = (event) => {
         setGender(event.target.value);
         console.log("ja esta");
-        <SucessAlert />
+       
     };
 
     const onSubmit = async (data) => {
@@ -45,6 +45,10 @@ const AddAuthor = () => {
             });
             toast.success('Autor cadastrado com sucesso!');
             reset();
+            setShowSuccess(true);
+            setTimeout(() => {
+                setShowSuccess(false); 
+              }, 2000);
         } catch (error) {
             toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
         }
@@ -138,6 +142,7 @@ const AddAuthor = () => {
                     </form>
                 </CardContent>
             </Card>
+            {showSuccess && <SucessAlert  mensagem="Autor adicionado  com sucesso"/>}
         </Box>
     )
 }
