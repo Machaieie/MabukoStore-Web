@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
 import logo from "../../assets/png/backgraundpage.png";
 import { useForm } from 'react-hook-form';
@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { publisherSchema } from '../../services/SchemaService';
 import { toast } from 'react-toastify';
 import http from '../../http.common';
+import SucessAlert from '../../components/alert/SucessAlert';
 
 
 const AddPublisher = () => {
@@ -13,10 +14,17 @@ const AddPublisher = () => {
     resolver: yupResolver(publisherSchema),
     mode: "onBlur"
   });
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const onSubmit = async (data) => {
     try {
       await http.post('/publisher', data);
-      reset()
+      reset()  
+      setShowSuccess(true);
+      setTimeout(() => {
+          setShowSuccess(false); 
+        }, 2000);
+
       console.log('Form Data:', data);
     } catch (error) {
       toast.error(error.response?.data.message);
@@ -97,6 +105,7 @@ const AddPublisher = () => {
           </form>
         </CardContent>
       </Card>
+      {showSuccess && <SucessAlert  mensagem="Editora adicionada  com sucesso"/>}
     </Box>
   );
 }

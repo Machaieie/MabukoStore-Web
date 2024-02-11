@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, TextField } from "@mui/material";
 import PropTypes from 'prop-types';
 import Box from '@mui/joy/Box';
 import Table from '@mui/joy/Table';
@@ -21,9 +21,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import http from '../../http.common';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-
+import { useNavigate } from "react-router-dom";
 
 const filterOptions = createFilterOptions({
   matchFrom: 'start',
@@ -259,15 +257,34 @@ const AddSale = () => {
   const [livroSelecionado, setLivroSelecionado] = useState('');
   const [livro, setLivro] = useState([])
   const [rows, setRows] = useState([]);
-  //const [quant, setQuant] = useState(1);
+  const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
+  const [promotionBooks, setPromotionBooks] = useState([]);
 
 
   const fetchData = async () => {
     const response = await http.get('/books');
     setLivro(response.data)
-    console.log("Livros =>",response.data)
+    const promotions = await http.get('/promotions');
+    setPromotionBooks(promotions.data)
+    
   }
 
+  const calculateTotal = () => {
+    let sum = 0;
+    rows.forEach(row => {
+      let price = row.price;
+      
+      const promotionBook = promotionBooks.find(book => book.id === row.id);
+      if (promotionBook) {
+       
+        price -= (price * promotionBook.discount) / 100; 
+      }
+      sum += price * row.amount;
+    });
+    setTotal(Math.ceil(sum)); 
+  };
+  
 
   const handleChangeBook = (event, value) => {
     if (value) {
@@ -284,15 +301,23 @@ const AddSale = () => {
           author: value.author.name,
           publisher: value.publisher.name,
           price: value.price,
-          amount: 1, 
+          amount: 1,
         };
-    
-        const newRows = [...rows, newBook]; 
+  
+        const newRows = [...rows, newBook];
         setRows(newRows);
+        console.log("livros da lista=> ",newRows )
       }
+  
+     
+      
     }
   };
   
+
+  useEffect(() => {
+    calculateTotal();
+  }, [rows]);
 
 
   const handleRequestSort = (event, property) => {
@@ -354,6 +379,16 @@ const AddSale = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+    const onSubmit = () =>{
+
+   
+      navigate("/payment", {
+        state:{
+          totalSelled: total,
+          listBooks: rows
+        }
+      })
+    }
 
   useEffect(() => {
     fetchData();
@@ -363,11 +398,11 @@ const AddSale = () => {
       <Grid container spacing={2} >
         <Grid item xs={12} sm={12} md={12}>
           <FormControl id="filter-demo">
-            <FormLabel>Livro</FormLabel>
+            <FormLabel>Adicionar Livro</FormLabel>
             <Autocomplete
               placeholder="Pesquise o Livro"
               options={livro}
-              getOptionLabel={(option) => option.title} 
+              getOptionLabel={(option) => option.title}
               filterOptions={filterOptions}
               sx={{ width: 300 }}
               onChange={handleChangeBook}
@@ -521,11 +556,22 @@ const AddSale = () => {
             </Table>
           </Sheet>
         </Grid>
+        <Grid item xs={6} >
+          <TextField
+            label="Total"
+            name="total"
+            disabled
+            placeholder="Total"
+            value={`${total} MZN`}
+          />
+        </Grid>
         <Grid item xs={6}>
           <Button
             type='submit'
             variant="contained"
             fullWidth
+            disabled={rows.length === 0}
+            onClick={onSubmit}
             color="primary">
             Prosseguir
           </Button>
