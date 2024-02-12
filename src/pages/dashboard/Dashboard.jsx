@@ -8,6 +8,7 @@ import stockIcon from "../../assets/svg/stock-ticker-svgrepo-com.svg"
 const Dashboard = () => {
   const [sales, setSales]= useState(0);
   const [stockBooks, setStockBooks]= useState(0);
+  const [amount, setAmount] = useState(0);
 
   const SvgIcon = (
     
@@ -47,6 +48,9 @@ const ProfitIcon = (
     const bookStock = await http.get('/countStockBook');
     //console.log("bookStock => ",bookStock.data)
     
+    const amonts = await http.get('/allAmount');
+    setAmount(amonts.data);
+
     setStockBooks(bookStock.data)
     const totalSales = await http.get('/countTotalSales');
     // console.log("Stoque Books => ",stockBooks)
@@ -81,7 +85,7 @@ const ProfitIcon = (
             title="Margem de Lucro"
             modalTitle="Lucros"
             modalBody={`Acrescimo de vendas`}
-            content={`${sales} %`}
+            content={`${6} %`}
             icon={ProfitIcon}
           />
           </Grid>
@@ -90,7 +94,7 @@ const ProfitIcon = (
             title="Carteira"
             modalTitle="Carteira"
             modalBody={`M-pesa: Emola: Numerário: `}
-            content={`${sales} MZN`}
+            content={`${amount} MZN`}
             icon={WalletIcon}
           />
           </Grid>

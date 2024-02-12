@@ -11,6 +11,7 @@ import Banco from "../../assets/png/iconsLogo/Banco.png"
 import http from '../../http.common';
 import PaymentMethodSelect from '../../components/Dropdown/PaymentMethodSelect';
 import SucessAlert from '../../components/alert/SucessAlert';
+import SaleReceipt from '../../reports/SaleReceipt';
 
 const PaymentPage = () => {
   const { state } = useLocation();
@@ -57,6 +58,7 @@ const PaymentPage = () => {
       setTimeout(() => {
         setShowSuccess(false);
       }, 2000);
+          SaleReceipt(state.listBooks, state.totalSelled,paymentMethod);
        navigate('/addSale');
       }
       
