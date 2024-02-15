@@ -36,6 +36,10 @@ const promotionSchema = yup.object({
   promotionPrice: yup.string().required(REQUIRED_FIELD_MESSAGE),
 })
 
+const StockSchema = yup.object({
+  amount: yup.number().required(REQUIRED_FIELD_MESSAGE),
+})
+
 
 const userSchema = yup.object({
  
@@ -62,5 +66,6 @@ export {
   publisherSchema,
   userSchema, 
   bookSchema,
-  promotionSchema
+  promotionSchema,
+  StockSchema
 }

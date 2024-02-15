@@ -11,6 +11,9 @@ import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import PromotionSelect from '../../components/Dropdown/PromotionSelect';
+import { Link, useNavigate } from "react-router-dom"
+
+
 const headers = [
   { key: 'id', label: 'ID', align: 'left' },
   { key: 'title', label: 'Titulo', align: 'left' },
@@ -29,8 +32,9 @@ const Book = () => {
   const [open, setOpen] = useState(false);
   const [livroSelecionado, setLivroSelecionado] = useState('');
   const [livro, setLivro] = useState([])
+  const navigate = useNavigate();
 
-  const {reset, register, handleSubmit, formState: { errors } } = useForm({
+  const { reset, register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(promotionSchema),
     mode: "onBlur"
   });
@@ -51,33 +55,34 @@ const Book = () => {
     }));
     setBook(data);
     setLivro(data)
-    console.log("Livros =>",data)
+    console.log("Livros =>", data)
 
   }
 
   const onSubmit = async (data) => {
     try {
       console.log("Promotion", {
-        "book_id":livroSelecionado,
-        "discount":data.promotionPrice,
-        "startDate":data.startDate,
-        "endDate":data.endDate,
+        "book_id": livroSelecionado,
+        "discount": data.promotionPrice,
+        "startDate": data.startDate,
+        "endDate": data.endDate,
       })
-        await http.post("/promotion",{
-          "book_id":livroSelecionado,
-          "discount":data.promotionPrice,
-          "startDate":data.startDate,
-          "endDate":data.endDate,
-        })
-        reset()
+      await http.post("/promotion", {
+        "book_id": livroSelecionado,
+        "discount": data.promotionPrice,
+        "startDate": data.startDate,
+        "endDate": data.endDate,
+      })
+      reset()
     } catch (error) {
       toast.error(error.response?.data.message);
     }
   };
   const handleChangeBook = (event) => {
     setLivroSelecionado(event.target.value);
-    console.log("id book ",event.target.value)
+    console.log("id book ", event.target.value)
   };
+ 
 
   useEffect(() => {
     fetchData();
@@ -183,21 +188,38 @@ const Book = () => {
           </ModalDialog>
         </Modal>
         <Grid container>
-          <Grid item xs={12} >
+          <Grid container >
+            <Grid item xs={6}>
+              <Button
+                type='submit'
+                variant="contained"
+                size='small'
+                color="primary"
+                sx={{
+                  marginBottom: 2
+                }}
+                onClick={() => setOpen(true)}
+              >
 
-            <Button
-              type='submit'
-              variant="contained"
-              size='small'
-              color="primary"
-              sx={{
-                marginBottom: 2
-              }}
-              onClick={() => setOpen(true)}
-            >
+                Adicionar Promocão
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                
+                variant="contained"
+                size='small'
+                color="primary"
+                sx={{
+                  marginBottom: 2
+                }}
+                onClick={() => navigate("/addStock")}
+              >
 
-              Adicionar Promocão
-            </Button>
+                Adicionar Estoque
+              </Button>
+            </Grid>
+
 
           </Grid>
           <Grid item xs={12} >

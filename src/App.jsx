@@ -16,6 +16,7 @@ import AddUser from "./pages/users/AddUser";
 import AddSale from "./pages/sales/AddSale";
 import ListSales from "./pages/sales/ListSales"
 import PaymentPage from "./pages/payments/PaymentPage";
+import AddStock from "./pages/stock/AddStock";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
               <Route path="/addSale" element={<AddSale />}></Route>
               <Route path="/listSales" element={<ListSales />}></Route>
               <Route path="/payment" element={<PaymentPage />}></Route>
+              <Route path="/addStock" element={<AddStock />}></Route>
             </Route>
             <Route path="/logout" element={<LoginPage />}></Route>
           </Routes>
