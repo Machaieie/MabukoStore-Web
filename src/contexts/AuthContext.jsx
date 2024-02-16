@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import http from "../http.common";
+import SuccessAlert from "../components/alert/SucessAlert"; 
 
 
 
@@ -11,8 +12,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isCompetitor, setIsCompetitor] = useState(false);
   const [loading, setLoading] = useState(true);
- // const [loginSuccess, setLoginSuccess] = useState(false);
-
+  const [isLogged, setIsLogged] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
 
 
@@ -32,21 +33,22 @@ export const AuthProvider = ({ children }) => {
           roleCode: response.data.roles[0].role,
           accessToken: response.data.token,
         };
+        setIsLogged(true)
         localStorage.setItem("principal", JSON.stringify(principal));
-        navigate("/")
+        console.log("IsLogged =>",isLogged)
+        setShowSuccess(true);
       }
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 2000);
+      navigate("/admin/home")
     } catch (error) {
       toast.error("Utilizador ou senha inválidos");
     }
   };
 
 
-  const checkIsCompetitor = (roleCode) => {
-    let role = "ROLE_SELLER";
-    let result = roleCode === role;
-    setIsCompetitor(result);
-    return result;
-  };
+
 
   const logout = () => {
     setUser(null);
@@ -66,17 +68,18 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        authenticated: !!user,
-        user,
         isCompetitor,
         login,
         logout,
         loading,
+        isLogged
       }}
     >
       
       {children}
-
+      {showSuccess && <SuccessAlert  mensagem="Usuario Logado com sucesso"/>}
     </AuthContext.Provider>
+    
   );
+ 
 };

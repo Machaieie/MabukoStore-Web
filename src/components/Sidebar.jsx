@@ -141,7 +141,7 @@ function Sidebar() {
           </ListItemButton>
           <Divider />
           <Box >
-            <ListItemButton component={Link} to="/dashboard">
+            <ListItemButton component={Link} to="dashboard">
               <ListItemIcon>
                 <Dashboard sx={{
                   color: "#fff"
@@ -163,7 +163,7 @@ function Sidebar() {
             </ListItemButton>
             <Collapse in={openMenu.books} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem button component={Link} to="/addBook">
+                <NestedListItem button component={Link} to="addBook">
                   <ListItemIcon>
                     <BookmarkAdd sx={{
                       color: "#fff"
@@ -171,7 +171,7 @@ function Sidebar() {
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
-                <NestedListItem button component={Link} to="/listBooks">
+                <NestedListItem button component={Link} to="listBooks">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
                       color: "#fff"
@@ -193,7 +193,7 @@ function Sidebar() {
             </ListItemButton>
             <Collapse in={openMenu.authors} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem button component={Link} to="/addAuthors">
+                <NestedListItem button component={Link} to="addAuthors">
                   <ListItemIcon>
                     <GroupAdd sx={{
                       color: "#fff"
@@ -201,7 +201,7 @@ function Sidebar() {
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
-                <NestedListItem button component={Link} to="/listAuthors">
+                <NestedListItem button component={Link} to="listAuthors">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
                       color: "#fff"
@@ -223,7 +223,7 @@ function Sidebar() {
             </ListItemButton>
             <Collapse in={openMenu.publishers} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem button component={Link} to="/addPublisher">
+                <NestedListItem button component={Link} to="addPublisher">
                   <ListItemIcon>
                     <AddBusiness sx={{
                       color: "#fff"
@@ -231,7 +231,7 @@ function Sidebar() {
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
-                <NestedListItem button component={Link} to="/listPublisher">
+                <NestedListItem button component={Link} to="listPublisher">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
                       color: "#fff"
@@ -252,7 +252,7 @@ function Sidebar() {
             </ListItemButton>
             <Collapse in={openMenu.sales} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem button component={Link} to="/addSale">
+                <NestedListItem button component={Link} to="addSale">
                   <ListItemIcon>
                     <AddShoppingCartOutlined sx={{
                       color: "#fff"
@@ -260,7 +260,7 @@ function Sidebar() {
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
-                <NestedListItem button component={Link} to="/listSales">
+                <NestedListItem button component={Link} to="listSales">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
                       color: "#fff"
@@ -282,7 +282,7 @@ function Sidebar() {
             </ListItemButton>
             <Collapse in={openMenu.users} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem button component={Link} to="/addUser">
+                <NestedListItem button component={Link} to="addUser">
                   <ListItemIcon>
                     <PersonAddAlt1 sx={{
                       color: "#fff"
@@ -290,7 +290,7 @@ function Sidebar() {
                   </ListItemIcon>
                   <ListItemText primary="Adicionar" />
                 </NestedListItem>
-                <NestedListItem button component={Link} to="/listusers">
+                <NestedListItem button component={Link} to="listusers">
                   <ListItemIcon>
                     <FormatListBulleted sx={{
                       color: "#fff"
@@ -301,7 +301,7 @@ function Sidebar() {
               </List>
             </Collapse>
 
-            <ListItemButton component={Link} to="/logout">
+            <ListItemButton component={Link} to="/">
               <ListItemIcon>
                 <ExitToApp sx={{
                   color: "#fff"

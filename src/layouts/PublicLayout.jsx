@@ -1,27 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Card, CardHeader, Grid, CardContent, FormControl, Box, TextField, Button } from "@mui/material";
 import { Outlet, Link, useParams } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext";
 import menu from "../services/NavigationService";
-import "../App.css"
-import { } from "@mui/material"
+import logo from "../assets/png/logo-no-background.png";
 
 const PublicLayout = () => {
-    useEffect(() => {
-        document.body.classList.remove("admin-page");
-        document.body.classList.add("public-page");
-    }, []);
-
-    const { authenticated, user, isCompetitor, loading, logout } =
-        useContext(AuthContext);
-    const params = useParams();
-    const nav = menu(String(user?.roleCode));
-
+    const { isLoged } = useContext(AuthContext);
 
     return (
-        <>
-          
-        </>
+        <Box
+            sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+                backgroundImage: `url(${logo})`,
+                backgroundSize: "40%",
+                backgroundRepeat: "no-repeat",
+                backgroundColor: "#c0c0c0",
+            }}
+        >
+
+        </Box>
+
     )
 }
 

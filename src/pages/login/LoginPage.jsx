@@ -22,7 +22,7 @@ const LoginPage = () => {
 
   const { login, user } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false); 
+  
   const navigate = useNavigate();
 
  
@@ -31,12 +31,12 @@ const LoginPage = () => {
     try {
       const response = await login(data.username, data.password);
       reset();
-      setShowSuccess(true);
-      toast.success('Bem vindo!');
       
-      setTimeout(() => {
-        setShowSuccess(false); // Defina showSuccess como false após 2 segundos
-      }, 2000);
+     
+      if(response.status === 200){
+        console.log("Deu 200")
+      }
+      
     } catch (error) {
       toast.error(error.response?.data.message || 'Erro ao cadastrar autor');
     }
@@ -112,7 +112,7 @@ const LoginPage = () => {
           </form>
         </CardContent>
       </Card>
-      {showSuccess && <SuccessAlert  mensagem="Usuario Logado com sucesso"/>}
+      
     </Box>
   );
 };
