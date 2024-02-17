@@ -59,7 +59,7 @@ const PaymentPage = () => {
         setShowSuccess(false);
       }, 2000);
           SaleReceipt(state.listBooks, state.totalSelled,paymentMethod);
-       navigate('/addSale');
+       navigate('/admin/addSale');
       }
       
     } catch (error) {
@@ -98,6 +98,7 @@ const PaymentPage = () => {
                 label="Número da conta bancária"
                 placeholder="Número da conta bancária"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -105,6 +106,7 @@ const PaymentPage = () => {
                 label="Nome do titular da conta"
                 placeholder="Nome do titular da conta"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -113,6 +115,7 @@ const PaymentPage = () => {
                 fullWidth
                 value={`${state.totalSelled} MZN`}
                 disabled
+                
               />
             </Grid>
             <Grid item xs={6}>
@@ -127,6 +130,7 @@ const PaymentPage = () => {
                 label="Número de Telemovel"
                 placeholder="Número de Telemovel"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -134,6 +138,7 @@ const PaymentPage = () => {
                 label="Código de Autenticacão"
                 placeholder="Código de Autenticacão"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -142,6 +147,7 @@ const PaymentPage = () => {
                 fullWidth
                 value={`${state.totalSelled} MZN`}
                 disabled
+                
               />
             </Grid>
             <Grid item xs={6}>
@@ -156,7 +162,7 @@ const PaymentPage = () => {
                 label="Número de Cartão"
                 placeholder="Número de Cartão"
                 fullWidth
-
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -164,6 +170,7 @@ const PaymentPage = () => {
                 label="Titular"
                 placeholder="Titular"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -186,6 +193,7 @@ const PaymentPage = () => {
                 label="Número de Telefone"
                 placeholder="Número de Telefone"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -208,6 +216,7 @@ const PaymentPage = () => {
                 label="Número de Telefone"
                 fullWidth
                 placeholder="Número de Telefone"
+                required
               />
             </Grid>
             <Grid item xs={6}>

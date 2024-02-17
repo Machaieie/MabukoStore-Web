@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import http from "../http.common";
 import SuccessAlert from "../components/alert/SucessAlert"; 
+import BadRequestAlert from "../components/alert/BadRequestAlert";
 
 
 
@@ -14,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showbadRequest, setShowbadRequest] = useState(false);
   const navigate = useNavigate();
 
 
@@ -37,9 +39,17 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("principal", JSON.stringify(principal));
         console.log("IsLogged =>",isLogged)
         setShowSuccess(true);
+      }else  if (response.status === 404) {
+        setShowbadRequest(true)
       }
+      
       setTimeout(() => {
         setShowSuccess(false);
+        
+      }, 2000);
+      setTimeout(() => {
+        setShowbadRequest(false);
+        
       }, 2000);
       navigate("/admin/home")
     } catch (error) {
@@ -78,6 +88,7 @@ export const AuthProvider = ({ children }) => {
       
       {children}
       {showSuccess && <SuccessAlert  mensagem="Usuario Logado com sucesso"/>}
+      {showbadRequest && <BadRequestAlert title="Falha no Login"  mensagem="Usuario ou senha errado!"/>}
     </AuthContext.Provider>
     
   );

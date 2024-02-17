@@ -382,7 +382,7 @@ const AddSale = () => {
     const onSubmit = () =>{
 
    
-      navigate("/payment", {
+      navigate("/admin/payment", {
         state:{
           totalSelled: total,
           listBooks: rows

@@ -136,7 +136,7 @@ function Sidebar() {
         }}>
           <ListItemButton>
             <LogoContainer>
-              <LogoImage src={logoImage} onClick={() => navigate("/")} alt="Logo" />
+              <LogoImage src={logoImage} onClick={() => navigate("/admin/home")} alt="Logo" />
             </LogoContainer>
           </ListItemButton>
           <Divider />
