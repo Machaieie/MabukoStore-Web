@@ -55,6 +55,61 @@ Contribuições são bem-vindas! Se você quiser contribuir com melhorias, corre
 5. Faça push para a sua branch: `git push origin nome-da-sua-branch`.
 6. Abra um pull request.
 
-## Captura de Tela
+## Tela de Login
 
 ![Tela de Login](./src/assets/pictures/telaLogin.png)
+
+## Tela de Inicial
+
+![Tela Inicial](./src/assets/pictures/home.png)
+
+## Tela de Dashboard
+
+![Dashboard](./src/assets/pictures/dashboard.png)
+
+## Tela de Adicionar Livro
+
+![Adicionar Livro](./src/assets/pictures/addBook.png)
+
+## Tela de Listagem de Livros
+
+![Listar Livros](./src/assets/pictures/listBook.png)
+
+## Tela de Adicionar Autor
+
+![Adicionar Autores](./src/assets/pictures/addAuthor.png)
+
+## Tela de Listagem de Autores
+
+![Listar Autores](./src/assets/pictures/listAuthors.png)
+
+## Tela de Adicionar Editora
+
+![Adicionar Editora](./src/assets/pictures/addPublisher.png)
+
+## Tela de Listagem de Editoras
+
+![Listar Editoras](./src/assets/pictures/listPublishers.png)
+
+## Tela de Vendas
+
+![Tela de vendas](./src/assets/pictures/addSale.png)
+
+
+##  Diferentes Metodos de Pagamento
+
+## Pagamento com Banco
+![Tela de Pagamentos](./src/assets/pictures/payment.png)
+
+## Pagamento por M-Pesa
+![Pagamento por M-Pesa](./src/assets/pictures/mpesa.png)
+
+## Pagamento por E-Mola
+![Pagamento por E-Mola](./src/assets/pictures/emola.png)
+
+## Pagamento por Cartão
+![Pagamento por Cartão](./src/assets/pictures/cartao.png)
+
+## Pagamento por Conta Movel
+![Pagamento por Conta Movel](./src/assets/pictures/contamovek.png)
+

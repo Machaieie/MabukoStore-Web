@@ -37,7 +37,7 @@ const Home = () => {
               title={`Promoção ${promo.id}`}
               content={`Livro: ${promo.bookTitle}`}
               modalTitle={`${promo.bookTitle}`}
-              modalBody={`Temos uma variedade de promoções para você. Aproveite esta grande promoção!`}
+              modalBody={`Temos uma variedade de promoções para você. \nAproveite esta grande promoção!`}
               validDate={`Promoção válida de ${promo.startdate} á ${promo.endDate}`}
               promoPrice={`${promo.discount}`}
             />
