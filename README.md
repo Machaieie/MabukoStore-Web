@@ -85,7 +85,7 @@ Contribuições são bem-vindas! Se você quiser contribuir com melhorias, corre
 
 ## Tela de Adicionar Editora
 
-![Adicionar Editora](./src/assets/pictures/addPublisher.png)
+![Adicionar Editora](./src/assets/pictures/addPublishre.png)
 
 ## Tela de Listagem de Editoras
 
@@ -93,7 +93,7 @@ Contribuições são bem-vindas! Se você quiser contribuir com melhorias, corre
 
 ## Tela de Vendas
 
-![Tela de vendas](./src/assets/pictures/addSale.png)
+![Tela de vendas](./src/assets/pictures/saleTable.png)
 
 
 ##  Diferentes Metodos de Pagamento
